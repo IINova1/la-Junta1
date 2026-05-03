@@ -14,6 +14,7 @@ urlpatterns = [
     
     # --- URLs de Admin para Pedidos ---
     path('pedidos/', views.pedido_list, name='pedido_list'),
+    path('pedidos/<int:pk>/cambiar_estado/', views.pedido_update_status, name='pedido_update_status'),
     path('pedidos/<int:pk>/', views.pedido_detail, name='pedido_detail'),
 
     # --- URLs de Admin para Cliente ---

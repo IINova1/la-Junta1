@@ -202,6 +202,20 @@
                     {% else %}
                         <span class="status-badge bg-secondary">{{ pedido.estado }}</span>
                     {% endif %}
+
+                    {% if can_change_pedido %}
+                        <form method="post" action="{% url 'pedidos:pedido_update_status' pedido.id %}" class="mt-3 text-end">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
+                                <select name="estado" class="form-select form-select-sm" style="min-width: 180px;">
+                                    {% for key, label in pedido.ESTADO_CHOICES %}
+                                        <option value="{{ key }}" {% if key == pedido.estado %}selected{% endif %}>{{ label }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-brand btn-sm">Actualizar estado</button>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
             </div>
 
@@ -228,7 +242,7 @@
                         </div>
                         <div>
                             <div class="info-label">Estado</div>
-                            <div class="info-value">Pendiente hasta entrega o retiro</div>
+                            <div class="info-value">{{ pedido.estado }}</div>
                         </div>
                     </div>
                 </div>

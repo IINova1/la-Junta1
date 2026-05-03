@@ -330,6 +330,24 @@ def exportar_pedidos_excel(request):
 
 
 @login_required
+@permission_required('pedidos.change_pedido', raise_exception=True)
+@require_POST
+def pedido_update_status(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    estado = request.POST.get('estado')
+    estados_validos = [choice[0] for choice in Pedido.ESTADO_CHOICES]
+
+    if estado in estados_validos:
+        pedido.estado = estado
+        pedido.save()
+        messages.success(request, f"El estado del pedido #{pedido.id} se actualizó a '{estado}'.")
+    else:
+        messages.error(request, "Estado de pedido inválido.")
+
+    return redirect('pedidos:pedido_detail', pk=pedido.id)
+
+
+@login_required
 @permission_required('pedidos.view_pedido', raise_exception=True)
 def pedido_detail(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
@@ -338,4 +356,8 @@ def pedido_detail(request, pk):
     for detalle in pedido.detalles.all():
         detalle.subtotal = detalle.cantidad * detalle.precio
 
-    return render(request, 'pedidos/pedido_detail.html', {'pedido': pedido})
+    can_change_pedido = request.user.has_perm('pedidos.change_pedido')
+    return render(request, 'pedidos/pedido_detail.html', {
+        'pedido': pedido,
+        'can_change_pedido': can_change_pedido,
+    })

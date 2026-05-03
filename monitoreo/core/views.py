@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from datetime import date, timedelta
 # --- IMPORTACIONES PARA GRÁFICOS Y AGREGACIÓN ---
 from django.db.models import F, Sum
-from django.db.models.functions import TruncDate
+from django.utils import timezone
 import json
 
 # Importación de modelos
@@ -63,27 +63,22 @@ def dashboard(request):
     ).order_by('caducidad')
     
     # 3. LÓGICA PARA EL GRÁFICO DE VENTAS (Últimos 30 días)
-    fecha_inicio_grafico = hoy - timedelta(days=30)
-    
-    # Agrupamos por día y sumamos el 'total'
-    # Excluimos los cancelados para que la gráfica sea positiva
-    ventas_por_fecha = Pedido.objects.filter(
-        fecha_pedido__date__gte=fecha_inicio_grafico
-    ).exclude(estado='Cancelado') \
-     .annotate(fecha=TruncDate('fecha_pedido')) \
-     .values('fecha') \
-     .annotate(suma_total=Sum('total')) \
-     .order_by('fecha')
+    fecha_inicio_grafico = timezone.now() - timedelta(days=30)
 
-    # Preparamos los datos para Chart.js (listas simples)
-    fechas_grafico = []
-    montos_grafico = []
+    # Cargamos pedidos completados del último mes y agrupamos por fecha local en Python
+    pedidos_completados = Pedido.objects.filter(
+        fecha_pedido__gte=fecha_inicio_grafico,
+        estado='Completado'
+    ).order_by('fecha_pedido')
 
-    for registro in ventas_por_fecha:
-        # Formato día/mes (ej: 12/10)
-        fechas_grafico.append(registro['fecha'].strftime("%d/%m"))
-        # Convertimos Decimal a float para que JS lo entienda
-        montos_grafico.append(float(registro['suma_total']))
+    ventas_por_fecha = {}
+    for pedido in pedidos_completados:
+        fecha_local = timezone.localtime(pedido.fecha_pedido).date()
+        clave = fecha_local.strftime("%d/%m")
+        ventas_por_fecha[clave] = ventas_por_fecha.get(clave, 0) + float(pedido.total)
+
+    fechas_grafico = list(ventas_por_fecha.keys())
+    montos_grafico = list(ventas_por_fecha.values())
 
     context = {
         'total_usuarios': total_usuarios,
