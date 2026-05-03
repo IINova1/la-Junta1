@@ -2,412 +2,593 @@
 {% block title %}Dashboard - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
-            --color-primario: #2f7d59;
-            --color-secundario: #202422;
-            --color-fondo: #f7f8f4;
-            --color-texto: #4a4a4a;
-            --color-borde: #e0e0e0;
+            --verde:        #1e6b44;
+            --verde-claro:  #2d8a58;
+            --verde-muted:  #e8f2ec;
+            --oro:          #c9a84c;
+            --negro:        #141a16;
+            --gris-oscuro:  #3a3f3c;
+            --gris-medio:   #7a8078;
+            --gris-claro:   #f2f4f1;
+            --blanco:       #ffffff;
+            --borde:        rgba(30,107,68,.12);
         }
+
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
-            background-color: var(--color-fondo);
-            font-family: 'Poppins', sans-serif;
-            color: var(--color-texto);
+            background-color: var(--gris-claro);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--gris-oscuro);
+            min-height: 100vh;
         }
 
-        /* Encabezado */
-        .dashboard-header {
+        /* ── Fondo decorativo ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 5% -10%, rgba(30,107,68,.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 95% 110%, rgba(201,168,76,.05) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dash-wrapper { position: relative; z-index: 1; }
+
+        /* ── Encabezado ── */
+        .dash-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
             margin-bottom: 2.5rem;
-            border-bottom: 2px solid rgba(47, 125, 89, 0.15);
-            padding-bottom: 1rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--borde);
         }
 
-        .dashboard-title {
-            font-family: 'Playfair Display', serif;
+        .brand-eyebrow {
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--verde);
+            margin-bottom: .3rem;
+        }
+
+        .dash-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3rem;
             font-weight: 700;
-            color: var(--color-secundario);
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            color: var(--negro);
+            line-height: 1;
+            margin: 0;
         }
 
-        /* Tarjetas de Estadísticas (KPIs) */
+        .dash-subtitle {
+            font-size: .88rem;
+            color: var(--gris-medio);
+            margin-top: .5rem;
+        }
+
+        .date-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .45rem 1rem;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 100px;
+            font-size: .8rem;
+            color: var(--gris-medio);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .date-chip i { color: var(--verde); }
+
+        /* ── KPI Cards ── */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (max-width: 1200px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px)  { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px)  { .kpi-grid { grid-template-columns: 1fr; } }
+
         .kpi-card {
-            background: white;
-            border: none;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
+            background: var(--blanco);
+            border-radius: 18px;
+            padding: 1.6rem 1.5rem 1.4rem;
+            border: 1px solid var(--borde);
             position: relative;
             overflow: hidden;
+            transition: transform .25s ease, box-shadow .25s ease;
+            animation: fadeUp .5s ease both;
         }
+
+        .kpi-card:nth-child(1) { animation-delay: .05s }
+        .kpi-card:nth-child(2) { animation-delay: .10s }
+        .kpi-card:nth-child(3) { animation-delay: .15s }
+        .kpi-card:nth-child(4) { animation-delay: .20s }
+        .kpi-card:nth-child(5) { animation-delay: .25s }
 
         .kpi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(47, 125, 89, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(30,107,68,.12);
         }
 
-        .kpi-card::after { /* Decoración lateral */
+        /* Acento superior */
+        .kpi-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background-color: var(--color-primario);
-            border-radius: 4px 0 0 4px;
+            top: 0; left: 1.5rem; right: 1.5rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--verde), var(--verde-claro));
+            border-radius: 0 0 4px 4px;
+            opacity: 0;
+            transition: opacity .25s;
+        }
+
+        .kpi-card:hover::before { opacity: 1; }
+
+        .kpi-icon-wrap {
+            width: 40px; height: 40px;
+            background: var(--verde-muted);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.1rem;
+            font-size: 1.2rem;
+            color: var(--verde);
+            transition: background .25s, color .25s;
+        }
+
+        .kpi-card:hover .kpi-icon-wrap {
+            background: var(--verde);
+            color: var(--blanco);
         }
 
         .kpi-label {
-            font-size: 0.85rem;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .12em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #888;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
+            color: var(--gris-medio);
+            margin-bottom: .4rem;
         }
 
         .kpi-value {
-            font-size: 2.5rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.8rem;
             font-weight: 700;
-            color: var(--color-secundario);
+            color: var(--negro);
             line-height: 1;
         }
 
         .kpi-note {
-            font-size: 0.8rem;
-            color: #7a7a7a;
-            margin-top: 0.65rem;
+            font-size: .75rem;
+            color: var(--gris-medio);
+            margin-top: .4rem;
         }
 
-        .kpi-icon {
-            font-size: 2.5rem;
-            color: var(--color-primario);
-            opacity: 0.2;
-            position: absolute;
-            right: 1.5rem;
-            bottom: 1rem;
-            transition: opacity 0.3s;
-        }
-        
-        .kpi-card:hover .kpi-icon {
-            opacity: 0.8;
+        /* ── Panel central: Gráfico + Alertas ── */
+        .main-panels {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
         }
 
-        /* Sección de Gráfico */
-        .chart-section {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            margin-bottom: 3rem;
+        @media (max-width: 1100px) { .main-panels { grid-template-columns: 1fr; } }
+
+        .panel {
+            background: var(--blanco);
+            border-radius: 18px;
+            border: 1px solid var(--borde);
+            padding: 1.75rem 2rem;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--color-secundario);
+        .panel-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--negro);
             margin-bottom: 1.5rem;
-            border-left: 4px solid var(--color-primario);
-            padding-left: 1rem;
-        }
-
-        /* Tarjetas de Acciones Rápidas */
-        .action-card {
-            background: white;
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--color-texto);
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            padding: 1.25rem;
-            height: 100%;
+            gap: .75rem;
         }
 
+        .panel-title-accent {
+            display: inline-block;
+            width: 6px; height: 6px;
+            background: var(--oro);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .panel-subtitle {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .8rem;
+            font-weight: 400;
+            color: var(--gris-medio);
+            margin-left: auto;
+        }
+
+        /* ── Alertas ── */
+        .alert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .25rem .65rem;
+            border-radius: 100px;
+            background: #fff3cd;
+            color: #8a6800;
+            margin-bottom: 1.25rem;
+        }
+
+        .alert-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: .85rem 0;
+            border-bottom: 1px solid rgba(0,0,0,.05);
+        }
+
+        .alert-item:last-child { border-bottom: none; }
+
+        .alert-item-name {
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--negro);
+            margin-bottom: .1rem;
+        }
+
+        .alert-item-brand {
+            font-size: .75rem;
+            color: var(--gris-medio);
+        }
+
+        .date-tag {
+            flex-shrink: 0;
+            padding: .3rem .65rem;
+            background: #fff3cd;
+            border-radius: 8px;
+            font-size: .75rem;
+            font-weight: 700;
+            color: #8a6800;
+        }
+
+        /* Empty state */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            gap: .75rem;
+        }
+
+        .empty-state-icon {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            background: var(--verde-muted);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.6rem;
+            color: var(--verde);
+        }
+
+        .empty-state p { font-size: .85rem; color: var(--gris-medio); margin: 0; }
+        .empty-state strong { font-size: .95rem; color: var(--negro); }
+
+        /* ── Acciones Rápidas ── */
+        .actions-section { margin-bottom: 3rem; }
+
+        .section-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: var(--negro);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 992px) { .actions-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px)  { .actions-grid { grid-template-columns: 1fr; } }
+
+        .action-card {
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 14px;
+            padding: 1.4rem 1.25rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all .22s ease;
+            animation: fadeUp .5s ease both;
+        }
+
+        .action-card:nth-child(1) { animation-delay: .1s }
+        .action-card:nth-child(2) { animation-delay: .15s }
+        .action-card:nth-child(3) { animation-delay: .2s }
+        .action-card:nth-child(4) { animation-delay: .25s }
+
         .action-card:hover {
-            background-color: var(--color-primario);
-            color: white;
+            background: var(--negro);
+            border-color: var(--negro);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(47, 125, 89, 0.3);
+            box-shadow: 0 8px 24px rgba(20,26,22,.18);
+            text-decoration: none;
         }
 
         .action-icon-box {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(47, 125, 89, 0.1);
+            width: 44px; height: 44px;
+            background: var(--verde-muted);
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 1rem;
-            transition: background-color 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            color: var(--verde);
+            flex-shrink: 0;
+            transition: background .22s, color .22s;
         }
 
         .action-card:hover .action-icon-box {
-            background-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,.1);
+            color: var(--blanco);
         }
 
-        .action-icon {
-            font-size: 1.5rem;
-            color: var(--color-primario);
-        }
-
-        .action-card:hover .action-icon {
-            color: white;
-        }
-
-        .action-text {
+        .action-label {
+            font-size: .9rem;
             font-weight: 600;
-            font-size: 1rem;
+            color: var(--gris-oscuro);
+            transition: color .22s;
         }
 
-        /* Alertas de Inventario */
-        .alert-inventory {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            border-radius: 12px;
-            color: #856404;
+        .action-card:hover .action-label { color: var(--blanco); }
+
+        .action-arrow {
+            margin-left: auto;
+            font-size: .9rem;
+            color: var(--borde);
+            transition: color .22s, transform .22s;
+            flex-shrink: 0;
         }
-        
-        .alert-header {
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+
+        .action-card:hover .action-arrow {
+            color: rgba(255,255,255,.5);
+            transform: translateX(3px);
+        }
+
+        /* ── Animación ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
     </style>
 {% endblock %}
 
 
 {% block content %}
-<div class="container py-5">
+<div class="container py-5 dash-wrapper">
 
-    <div class="dashboard-header d-flex justify-content-between align-items-end flex-wrap gap-3">
+    <!-- Encabezado -->
+    <header class="dash-header">
         <div>
-            <h1 class="dashboard-title">Dashboard</h1>
-            <p class="text-muted mb-0">Bienvenido, {{ request.user.first_name }}. Aquí está el resumen de hoy.</p>
+            <div class="brand-eyebrow">La Junta · Coquimbo</div>
+            <h1 class="dash-title">Dashboard</h1>
+            <p class="dash-subtitle">Bienvenido, {{ request.user.first_name }}. Aquí está el resumen de hoy.</p>
         </div>
-        <div>
-            <span class="badge bg-secondary rounded-pill px-3 py-2 fw-normal">
-                <i class="bi bi-calendar3 me-2"></i>{% now "l, d F Y" %}
-            </span>
+        <div class="date-chip">
+            <i class="bi bi-calendar3"></i>
+            {% now "l, d F Y" %}
+        </div>
+    </header>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-icon-wrap"><i class="bi bi-receipt"></i></div>
+            <div class="kpi-label">Pedidos Pendientes</div>
+            <div class="kpi-value">{{ total_pedidos_pendientes }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon-wrap"><i class="bi bi-box-seam"></i></div>
+            <div class="kpi-label">Productos Activos</div>
+            <div class="kpi-value">{{ total_productos }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon-wrap"><i class="bi bi-people"></i></div>
+            <div class="kpi-label">Total Clientes</div>
+            <div class="kpi-value">{{ total_clientes }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon-wrap"><i class="bi bi-truck"></i></div>
+            <div class="kpi-label">Proveedores</div>
+            <div class="kpi-value">{{ total_proveedores }}</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-icon-wrap"><i class="bi bi-eye"></i></div>
+            <div class="kpi-label">Visitas Web</div>
+            <div class="kpi-value">{{ total_visitas }}</div>
+            <div class="kpi-note">{{ visitantes_unicos }} visitantes únicos</div>
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4 mb-5">
-        <div class="col">
-            <div class="kpi-card">
-                <div class="kpi-label">Pedidos Pendientes</div>
-                <div class="kpi-value">{{ total_pedidos_pendientes }}</div>
-                <i class="bi bi-receipt kpi-icon"></i>
+    <!-- Gráfico + Alertas -->
+    <div class="main-panels">
+        <div class="panel">
+            <div class="panel-title">
+                <span class="panel-title-accent"></span>
+                Evolución de Ventas
+                <span class="panel-subtitle">Últimos 30 días</span>
+            </div>
+            <div style="height: 320px;">
+                <canvas id="ventasChart"></canvas>
             </div>
         </div>
 
-        <div class="col">
-            <div class="kpi-card">
-                <div class="kpi-label">Productos Activos</div>
-                <div class="kpi-value">{{ total_productos }}</div>
-                <i class="bi bi-box-seam kpi-icon"></i>
+        <div class="panel">
+            <div class="panel-title">
+                <span class="panel-title-accent" style="background:var(--oro)"></span>
+                Alertas de Inventario
             </div>
-        </div>
 
-        <div class="col">
-            <div class="kpi-card">
-                <div class="kpi-label">Total Clientes</div>
-                <div class="kpi-value">{{ total_clientes }}</div>
-                <i class="bi bi-people kpi-icon"></i>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="kpi-card">
-                <div class="kpi-label">Proveedores</div>
-                <div class="kpi-value">{{ total_proveedores }}</div>
-                <i class="bi bi-truck kpi-icon"></i>
-            </div>
-        </div>
-
-        <div class="col">
-            <div class="kpi-card">
-                <div class="kpi-label">Visitas Web</div>
-                <div class="kpi-value">{{ total_visitas }}</div>
-                <div class="kpi-note">{{ visitantes_unicos }} visitantes unicos</div>
-                <i class="bi bi-eye kpi-icon"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="chart-section">
-                <h3 class="section-title">Evolución de Ventas <small class="text-muted fs-6 fw-normal">(Últimos 30 días)</small></h3>
-                <div style="height: 350px; width: 100%;">
-                    <canvas id="ventasChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row g-4">
-        
-        <div class="col-lg-8">
-            <h3 class="section-title mb-4">Acciones Rápidas</h3>
-            <div class="row row-cols-1 row-cols-md-2 g-3">
-                <div class="col">
-                    <a href="{% url 'catalogo:producto_create' %}" class="action-card">
-                        <div class="action-icon-box">
-                            <i class="bi bi-plus-lg action-icon"></i>
-                        </div>
-                        <span class="action-text">Nuevo Producto</span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="{% url 'pedidos:pedido_list' %}" class="action-card">
-                        <div class="action-icon-box">
-                            <i class="bi bi-clipboard-check action-icon"></i>
-                        </div>
-                        <span class="action-text">Gestionar Pedidos</span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="{% url 'proveedores:listar_proveedores' %}" class="action-card">
-                        <div class="action-icon-box">
-                            <i class="bi bi-building action-icon"></i>
-                        </div>
-                        <span class="action-text">Ver Proveedores</span>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="{% url 'usuarios:usuario_list' %}" class="action-card">
-                        <div class="action-icon-box">
-                            <i class="bi bi-people-fill action-icon"></i>
-                        </div>
-                        <span class="action-text">Usuarios y Personal</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <h3 class="section-title mb-4">Alertas de Inventario</h3>
             {% if productos_a_vencer %}
-                <div class="alert alert-inventory p-4 shadow-sm" role="alert">
-                    <div class="alert-header mb-3">
-                        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
-                        <span>Atención Requerida</span>
-                    </div>
-                    <p class="small mb-3">Los siguientes productos vencen en los próximos <strong>7 días</strong>:</p>
-                    <ul class="list-group list-group-flush bg-transparent">
-                        {% for producto in productos_a_vencer %}
-                        <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center px-0 py-2 border-warning border-opacity-25">
-                            <div>
-                                <strong>{{ producto.nombre }}</strong>
-                                <br><small class="text-muted">{{ producto.marca }}</small>
-                            </div>
-                            <span class="badge bg-warning text-dark">{{ producto.caducidad|date:"d/m" }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="alert-badge">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    Vencen en 7 días
                 </div>
+                {% for producto in productos_a_vencer %}
+                <div class="alert-item">
+                    <div>
+                        <div class="alert-item-name">{{ producto.nombre }}</div>
+                        <div class="alert-item-brand">{{ producto.marca }}</div>
+                    </div>
+                    <div class="date-tag">{{ producto.caducidad|date:"d/m" }}</div>
+                </div>
+                {% endfor %}
             {% else %}
-                <div class="card border-0 shadow-sm p-4 text-center h-100 align-items-center justify-content-center bg-white" style="border-radius: 12px;">
-                    <i class="bi bi-check-circle text-success mb-3" style="font-size: 3rem;"></i>
-                    <h5 class="text-muted">Todo en orden</h5>
-                    <p class="small text-muted mb-0">No hay productos próximos a vencer en los siguientes 7 días.</p>
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <strong>Todo en orden</strong>
+                    <p>No hay productos próximos a vencer en los próximos 7 días.</p>
                 </div>
             {% endif %}
+        </div>
+    </div>
+
+    <!-- Acciones Rápidas -->
+    <div class="actions-section">
+        <div class="section-heading">
+            <span class="panel-title-accent"></span>
+            Acciones Rápidas
+        </div>
+        <div class="actions-grid">
+            <a href="{% url 'catalogo:producto_create' %}" class="action-card">
+                <div class="action-icon-box"><i class="bi bi-plus-lg"></i></div>
+                <span class="action-label">Nuevo Producto</span>
+                <i class="bi bi-arrow-right action-arrow"></i>
+            </a>
+            <a href="{% url 'pedidos:pedido_list' %}" class="action-card">
+                <div class="action-icon-box"><i class="bi bi-clipboard-check"></i></div>
+                <span class="action-label">Gestionar Pedidos</span>
+                <i class="bi bi-arrow-right action-arrow"></i>
+            </a>
+            <a href="{% url 'proveedores:listar_proveedores' %}" class="action-card">
+                <div class="action-icon-box"><i class="bi bi-building"></i></div>
+                <span class="action-label">Ver Proveedores</span>
+                <i class="bi bi-arrow-right action-arrow"></i>
+            </a>
+            <a href="{% url 'usuarios:usuario_list' %}" class="action-card">
+                <div class="action-icon-box"><i class="bi bi-people-fill"></i></div>
+                <span class="action-label">Usuarios y Personal</span>
+                <i class="bi bi-arrow-right action-arrow"></i>
+            </a>
         </div>
     </div>
 
 </div>
 {% endblock %}
 
+
 {% block extra_scripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const ctx = document.getElementById('ventasChart').getContext('2d');
-        
-        // Datos inyectados desde Django
-        const fechas = {{ fechas_grafico|safe }};
-        const montos = {{ montos_grafico|safe }};
+document.addEventListener('DOMContentLoaded', function () {
+    const ctx = document.getElementById('ventasChart').getContext('2d');
 
-        // Gradiente de marca
-        let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(47, 125, 89, 0.6)');
-        gradient.addColorStop(1, 'rgba(47, 125, 89, 0.0)');
+    const fechas  = {{ fechas_grafico|safe }};
+    const montos  = {{ montos_grafico|safe }};
 
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: fechas,
-                datasets: [{
-                    label: 'Ventas Totales ($)',
-                    data: montos,
-                    borderColor: '#2f7d59',
-                    backgroundColor: gradient,
-                    borderWidth: 3,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#2f7d59',
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    fill: true,
-                    tension: 0.4 // Curvas más suaves
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }, // Diseño limpio sin leyenda
-                    tooltip: {
-                        backgroundColor: '#2c2c2c',
-                        titleFont: { family: 'Poppins', size: 13 },
-                        bodyFont: { family: 'Poppins', size: 14, weight: 'bold' },
-                        padding: 12,
-                        cornerRadius: 8,
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    label += new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(context.parsed.y);
-                                }
-                                return label;
-                            }
+    const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+    gradient.addColorStop(0,   'rgba(30,107,68,.20)');
+    gradient.addColorStop(1,   'rgba(30,107,68,.00)');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: fechas,
+            datasets: [{
+                label: 'Ventas',
+                data: montos,
+                borderColor: '#1e6b44',
+                backgroundColor: gradient,
+                borderWidth: 2.5,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#1e6b44',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                fill: true,
+                tension: 0.45
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#141a16',
+                    titleFont: { family: 'Plus Jakarta Sans', size: 11, weight: '600' },
+                    bodyFont:  { family: 'Cormorant Garamond', size: 16, weight: '700' },
+                    padding: 12,
+                    cornerRadius: 10,
+                    callbacks: {
+                        label: function(ctx) {
+                            return ' ' + new Intl.NumberFormat('es-CL', {
+                                style: 'currency', currency: 'CLP'
+                            }).format(ctx.parsed.y);
                         }
                     }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,.05)', drawBorder: false },
+                    ticks: {
+                        font: { family: 'Plus Jakarta Sans', size: 11 },
+                        color: '#7a8078',
+                        callback: v => '$' + v.toLocaleString('es-CL')
+                    }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            borderDash: [5, 5],
-                            color: '#f0f0f0'
-                        },
-                        ticks: {
-                            font: { family: 'Poppins' },
-                            callback: function(value) { return '$' + value; }
-                        }
-                    },
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { family: 'Poppins' } }
+                x: {
+                    grid: { display: false },
+                    ticks: {
+                        font: { family: 'Plus Jakarta Sans', size: 11 },
+                        color: '#7a8078'
                     }
                 }
             }
-        });
+        }
     });
+});
 </script>
 {% endblock %}

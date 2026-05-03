@@ -2,288 +2,570 @@
 {% block title %}Nuestros Productos{% endblock %}
 
 {% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <style>
-    /* --- Estilos personalizados --- */
-    
-    .header-icon {
-        width: 3rem;
-        height: 3rem;
+    :root {
+        --verde:        #1e6b44;
+        --verde-claro:  #2d8a58;
+        --verde-muted:  #e8f2ec;
+        --oro:          #c9a84c;
+        --negro:        #141a16;
+        --gris-oscuro:  #3a3f3c;
+        --gris-medio:   #7a8078;
+        --gris-claro:   #f2f4f1;
+        --blanco:       #ffffff;
+        --borde:        rgba(30,107,68,.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+        background-color: var(--gris-claro);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: var(--gris-oscuro);
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 80% 50% at 5% -10%, rgba(30,107,68,.06) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 95% 110%, rgba(201,168,76,.05) 0%, transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .page-wrapper { position: relative; z-index: 1; }
+
+    /* ── Header ── */
+    .page-header {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.6rem;
-    }
-
-    .productos-header {
-        background: linear-gradient(135deg, #eef5ee, #f7e8be);
-        padding: 2.5rem;
-        border-radius: 1.25rem;
-        color: #202422;
-        text-shadow: none;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        margin-bottom: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1.5rem;
-    }
-
-    .productos-header h1 {
-        font-weight: 700;
-        letter-spacing: 1px;
-        margin-bottom: 0;
-    }
-
-    /* Estilos para las tarjetas de producto */
-    .card.producto-card {
-        transition: transform 0.25s ease, box-shadow 0.25s ease;
-        border: none;
-        border-radius: 1rem; /* Bordes más redondeados */
-        overflow: hidden;
-        /* Sombra más suave y moderna */
-        box-shadow: 0 8px 24px rgba(90, 70, 40, 0.08);
-    }
-
-    .card.producto-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(90, 70, 40, 0.12);
-    }
-
-    .producto-card-img {
-        height: 220px; /* Un poco más altas */
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .producto-card .card-body {
-        display: flex;
-        flex-direction: column;
+        align-items: flex-end;
         justify-content: space-between;
-        padding: 1.25rem;
-    }
-
-    .producto-card .card-title {
-        font-weight: 600;
-        color: #333;
-    }
-
-    .producto-card .card-text {
-        color: #6c757d;
-        font-size: 0.9rem;
-    }
-
-    /* Estilos para el formulario de filtros */
-    .filtros-acordeon {
-        border-radius: 1rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        background-color: #fff;
+        flex-wrap: wrap;
+        gap: 1rem;
         margin-bottom: 2rem;
-        border: none;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--borde);
     }
 
-    .filtros-acordeon summary {
+    .brand-eyebrow {
+        font-size: .72rem;
+        font-weight: 600;
+        letter-spacing: .18em;
+        text-transform: uppercase;
+        color: var(--verde);
+        margin-bottom: .3rem;
+    }
+
+    .page-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--negro);
+        line-height: 1;
+        margin: 0;
+    }
+
+    .page-subtitle {
+        font-size: .88rem;
+        color: var(--gris-medio);
+        margin-top: .4rem;
+    }
+
+    .age-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: .45rem;
+        padding: .4rem .9rem;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 100px;
+        font-size: .75rem;
+        font-weight: 600;
+        color: var(--gris-medio);
+        white-space: nowrap;
+    }
+
+    .age-chip i { color: var(--oro); }
+
+    /* ── Filtros ── */
+    .filtros-panel {
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+    }
+
+    .filtros-summary {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
         padding: 1rem 1.5rem;
         font-weight: 600;
-        color: var(--bs-primary);
+        font-size: .9rem;
+        color: var(--negro);
         cursor: pointer;
-        list-style: none; /* Oculta la flecha por defecto */
+        list-style: none;
+        user-select: none;
+        transition: background .15s;
     }
 
-    /* Flecha personalizada para el acordeón */
-    .filtros-acordeon summary::after {
-        content: '▼';
-        float: right;
-        transition: transform 0.2s ease;
-        font-size: 0.8rem;
-    }
-    .filtros-acordeon[open] summary::after {
-        transform: rotate(180deg);
+    .filtros-summary:hover { background: var(--gris-claro); }
+    .filtros-summary::-webkit-details-marker { display: none; }
+
+    .filtros-summary i.fi-icon { color: var(--verde); font-size: 1rem; }
+
+    .filtros-summary .chevron {
+        margin-left: auto;
+        font-size: .85rem;
+        color: var(--gris-medio);
+        transition: transform .2s;
     }
 
-    .form-busqueda {
-        padding: 0 1.5rem 1.5rem 1.5rem;
+    details[open] .chevron { transform: rotate(180deg); }
+
+    .filtros-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+        border-top: 1px solid var(--borde);
     }
-    
-    /* --- ¡MEJORA DEL BOTÓN AGREGAR! --- */
-    .btn-agregar-carrito {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: linear-gradient(135deg, #007bff, #00b4d8);
-        border: none;
+
+    .filtros-body .form-label {
+        font-size: .72rem;
         font-weight: 600;
-        width: 100%;
-        transition: all 0.3s ease;
-    }
-    .btn-agregar-carrito:hover {
-        background: linear-gradient(135deg, #0056b3, #0096c7);
-        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-    }
-    
-    .btn-agregar-precio {
-        font-weight: 700;
-        font-size: 1.1rem;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--gris-medio);
+        margin-bottom: .4rem;
     }
 
-    /* Estilos de Paginación */
-    .pagination .page-link {
-        border-radius: 0.5rem;
-        color: #007bff;
+    .filtros-body .form-control,
+    .filtros-body .form-select {
+        border: 1px solid rgba(0,0,0,.1);
+        border-radius: 10px;
+        font-size: .88rem;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        padding: .5rem .85rem;
+        color: var(--negro);
+        background-color: var(--gris-claro);
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .filtros-body .form-control:focus,
+    .filtros-body .form-select:focus {
+        border-color: var(--verde);
+        box-shadow: 0 0 0 3px rgba(30,107,68,.1);
+        outline: none;
+        background: var(--blanco);
+    }
+
+    .btn-aplicar {
+        background: var(--verde);
+        color: var(--blanco);
         border: none;
-        margin: 0 0.25rem;
-    }
-    .pagination .page-link:hover {
-        background-color: #e9ecef;
-    }
-    .pagination .active .page-link {
-        background-color: #007bff;
-        border-color: #007bff;
-        box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
-    }
-    .pagination .disabled .page-link {
-        color: #adb5bd;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: .88rem;
+        padding: .55rem 1.4rem;
+        width: 100%;
+        transition: background .2s, box-shadow .2s, transform .15s;
     }
 
+    .btn-aplicar:hover {
+        background: var(--verde-claro);
+        box-shadow: 0 4px 14px rgba(30,107,68,.25);
+        transform: translateY(-1px);
+        color: var(--blanco);
+    }
+
+    /* ── Tarjetas de producto ── */
+    .producto-card {
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 18px;
+        overflow: hidden;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: transform .25s ease, box-shadow .25s ease;
+        animation: fadeUp .45s ease both;
+    }
+
+    .producto-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 40px rgba(30,107,68,.13);
+    }
+
+    .producto-img-wrap {
+        position: relative;
+        overflow: hidden;
+        height: 220px;
+        background: var(--gris-claro);
+    }
+
+    .producto-img-wrap img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform .4s ease;
+    }
+
+    .producto-card:hover .producto-img-wrap img {
+        transform: scale(1.04);
+    }
+
+    .producto-no-img {
+        width: 100%; height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        color: var(--gris-medio);
+        font-size: .82rem;
+    }
+
+    .producto-no-img i { font-size: 2.5rem; opacity: .3; }
+
+    .stock-tag {
+        position: absolute;
+        top: .85rem;
+        right: .85rem;
+        background: rgba(255,255,255,.92);
+        backdrop-filter: blur(6px);
+        border-radius: 100px;
+        padding: .25rem .7rem;
+        font-size: .72rem;
+        font-weight: 600;
+        color: var(--gris-oscuro);
+        border: 1px solid var(--borde);
+    }
+
+    .stock-tag.sin-stock {
+        color: #c0392b;
+        background: rgba(255,235,235,.92);
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem;
+        flex: 1;
+    }
+
+    .card-nombre {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--negro);
+        margin-bottom: .3rem;
+        line-height: 1.2;
+    }
+
+    .card-desc {
+        font-size: .82rem;
+        color: var(--gris-medio);
+        line-height: 1.5;
+        flex: 1;
+        margin-bottom: 1rem;
+    }
+
+    /* ── Formulario agregar ── */
+    .add-form { margin-top: auto; }
+
+    .add-row {
+        display: flex;
+        gap: .6rem;
+        align-items: center;
+    }
+
+    .qty-input {
+        width: 64px;
+        flex-shrink: 0;
+        border: 1px solid rgba(0,0,0,.1);
+        border-radius: 10px;
+        text-align: center;
+        font-size: .9rem;
+        font-weight: 600;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        padding: .55rem .4rem;
+        color: var(--negro);
+        background: var(--gris-claro);
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .qty-input:focus {
+        border-color: var(--verde);
+        box-shadow: 0 0 0 3px rgba(30,107,68,.1);
+        outline: none;
+        background: var(--blanco);
+    }
+
+    .btn-carrito {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: .55rem 1rem;
+        background: var(--negro);
+        color: var(--blanco);
+        border: none;
+        border-radius: 10px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: .85rem;
+        font-weight: 600;
+        transition: background .2s, box-shadow .2s, transform .15s;
+        cursor: pointer;
+    }
+
+    .btn-carrito:hover {
+        background: var(--verde);
+        box-shadow: 0 4px 14px rgba(30,107,68,.3);
+        transform: translateY(-1px);
+    }
+
+    .btn-precio {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        opacity: .85;
+    }
+
+    /* ── Empty state ── */
+    .empty-state {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .75rem;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .empty-icon {
+        width: 72px; height: 72px;
+        background: var(--verde-muted);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 2rem;
+        color: var(--verde);
+    }
+
+    .empty-state strong { font-size: 1rem; color: var(--negro); }
+    .empty-state p { font-size: .85rem; color: var(--gris-medio); margin: 0; }
+
+    /* ── Paginación ── */
+    .paginacion {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .35rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .pag-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 38px; height: 38px;
+        padding: 0 .75rem;
+        border-radius: 10px;
+        border: 1px solid var(--borde);
+        background: var(--blanco);
+        color: var(--gris-oscuro);
+        font-size: .85rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all .18s;
+    }
+
+    .pag-link:hover {
+        background: var(--verde-muted);
+        border-color: var(--verde);
+        color: var(--verde);
+    }
+
+    .pag-link.active {
+        background: var(--verde);
+        border-color: var(--verde);
+        color: var(--blanco);
+        font-weight: 700;
+        pointer-events: none;
+    }
+
+    .pag-link.disabled {
+        opacity: .4;
+        pointer-events: none;
+        background: var(--gris-claro);
+    }
+
+    /* ── Animación ── */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .productos-grid .col:nth-child(1)  { animation-delay: .04s }
+    .productos-grid .col:nth-child(2)  { animation-delay: .08s }
+    .productos-grid .col:nth-child(3)  { animation-delay: .12s }
+    .productos-grid .col:nth-child(4)  { animation-delay: .16s }
+    .productos-grid .col:nth-child(5)  { animation-delay: .20s }
+    .productos-grid .col:nth-child(6)  { animation-delay: .24s }
+    .productos-grid .col:nth-child(7)  { animation-delay: .28s }
+    .productos-grid .col:nth-child(8)  { animation-delay: .32s }
+    .productos-grid .col:nth-child(9)  { animation-delay: .36s }
 </style>
 {% endblock %}
 
 
 {% block content %}
-<div class="container mt-5 mb-5">
+<div class="container py-5 page-wrapper">
 
-    <div class="productos-header">
-        <div class="header-icon"><i class="bi bi-bag-check-fill"></i></div>
+    <!-- Encabezado -->
+    <header class="page-header">
         <div>
-            <h1>Nuestros Productos</h1>
-            <p class="lead mb-0">Descubre nuestros productos de botilleria, snacks y accesorios</p>
-            <p class="small mb-0 mt-2 text-muted">Venta de alcohol solo para mayores de 18 años.</p>
+            <div class="brand-eyebrow">La Junta · Coquimbo</div>
+            <h1 class="page-title">Nuestros Productos</h1>
+            <p class="page-subtitle">Botillería, snacks y accesorios seleccionados para ti.</p>
         </div>
-    </div>
+        <div class="age-chip">
+            <i class="bi bi-shield-check"></i>
+            Venta de alcohol solo +18
+        </div>
+    </header>
 
-    <details class="filtros-acordeon" {% if current_q %}open{% endif %}>
-        <summary>
+    <!-- Filtros -->
+    <details class="filtros-panel" {% if current_q %}open{% endif %}>
+        <summary class="filtros-summary">
+            <i class="bi bi-sliders fi-icon"></i>
             Buscar y Filtrar Productos
+            <i class="bi bi-chevron-down chevron"></i>
         </summary>
-        <div class="form-busqueda">
+        <div class="filtros-body">
             <form method="GET" action="{% url 'pedidos:ver_productos' %}" class="row g-3 align-items-end">
-                
                 <div class="col-md-5">
-                    <label for="q" class="form-label fw-bold">Buscar Producto</label>
-                    <input type="text" class="form-control" id="q" name="q" 
-                           placeholder="Ej: Vino, Evercrisp, Trencito..."
+                    <label for="q" class="form-label">Buscar Producto</label>
+                    <input type="text" class="form-control" id="q" name="q"
+                           placeholder="Ej: Vino, Evercrisp, Trencito…"
                            value="{{ current_q|default:'' }}">
                 </div>
-
                 <div class="col-md-3">
-                    <label for="sort" class="form-label fw-bold">Ordenar por</label>
+                    <label for="sort" class="form-label">Ordenar por</label>
                     <select id="sort" name="sort" class="form-select">
-                        <option value="alpha_asc" {% if current_sort == 'alpha_asc' %}selected{% endif %}>Nombre (A-Z)</option>
-                        <option value="alpha_desc" {% if current_sort == 'alpha_desc' %}selected{% endif %}>Nombre (Z-A)</option>
-                        <option value="precio_asc" {% if current_sort == 'precio_asc' %}selected{% endif %}>Precio (Menor a Mayor)</option>
+                        <option value="alpha_asc"   {% if current_sort == 'alpha_asc' %}selected{% endif %}>Nombre (A–Z)</option>
+                        <option value="alpha_desc"  {% if current_sort == 'alpha_desc' %}selected{% endif %}>Nombre (Z–A)</option>
+                        <option value="precio_asc"  {% if current_sort == 'precio_asc' %}selected{% endif %}>Precio (Menor a Mayor)</option>
                         <option value="precio_desc" {% if current_sort == 'precio_desc' %}selected{% endif %}>Precio (Mayor a Menor)</option>
                     </select>
                 </div>
-
                 <div class="col-md-2">
-                    <label for="per_page" class="form-label fw-bold">Mostrar</label>
+                    <label for="per_page" class="form-label">Mostrar</label>
                     <select id="per_page" name="per_page" class="form-select">
                         {% for option in per_page_options %}
                         <option value="{{ option }}" {% if current_per_page == option %}selected{% endif %}>{{ option }} por pág.</option>
                         {% endfor %}
                     </select>
                 </div>
-
                 <div class="col-md-2 d-grid">
-                    <button type="submit" class="btn btn-primary">Aplicar</button>
+                    <button type="submit" class="btn-aplicar">Aplicar</button>
                 </div>
-
             </form>
         </div>
     </details>
 
-
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+    <!-- Grid de productos -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 productos-grid">
         {% for producto in page_obj %}
         <div class="col">
-            <div class="card producto-card h-100">
-                
-                {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" class="producto-card-img" alt="{{ producto.nombre }}">
-                {% else %}
-                    <div class="producto-card-img bg-light d-flex align-items-center justify-content-center">
-                        <span class="text-muted">Sin imagen</span>
-                    </div>
-                {% endif %}
-                
-                <div class="card-body">
-                    <div>
-                        <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">{{ producto.descripcion|truncatewords:20 }}</p>
-                        <p class="card-text mb-2">
-                            <strong>Stock:</strong>
-                            {% if producto.stock_actual is not None %}
-                                {{ producto.stock_actual }} unidad{{ producto.stock_actual|pluralize }}
-                            {% else %}
-                                0 unidades
-                            {% endif %}
-                        </p>
-                    </div>
-                    
-                    <form action="{% url 'pedidos:agregar_al_carrito' producto.id %}" method="post" class="mt-4">
-                        {% csrf_token %}
-                        <div class="d-flex align-items-center">
-                            <input type="number" name="cantidad" value="1" min="1" max="{{ producto.stock_actual }}" 
-                                   class="form-control" 
-                                   style="max-width: 70px; margin-right: 10px; text-align: center;">
-                            
-                            <button type="submit" class="btn btn-primary btn-agregar-carrito">
-                                <span>Agregar</span>
-                                <span class="btn-agregar-precio">💲{{ producto.precio|floatformat:0 }}</span>
-                            </button>
+            <div class="producto-card">
+
+                <div class="producto-img-wrap">
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                    {% else %}
+                        <div class="producto-no-img">
+                            <i class="bi bi-image"></i>
+                            <span>Sin imagen</span>
                         </div>
-                    </form>
+                    {% endif %}
+
+                    <span class="stock-tag {% if producto.stock_actual == 0 %}sin-stock{% endif %}">
+                        {% if producto.stock_actual %}
+                            <i class="bi bi-layers" style="margin-right:.3rem"></i>{{ producto.stock_actual }} uds.
+                        {% else %}
+                            Sin stock
+                        {% endif %}
+                    </span>
                 </div>
+
+                <div class="card-body">
+                    <h5 class="card-nombre">{{ producto.nombre }}</h5>
+                    <p class="card-desc">{{ producto.descripcion|truncatewords:20 }}</p>
+
+                    <div class="add-form">
+                        <form action="{% url 'pedidos:agregar_al_carrito' producto.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="add-row">
+                                <input type="number" name="cantidad" value="1" min="1"
+                                       max="{{ producto.stock_actual }}"
+                                       class="qty-input">
+                                <button type="submit" class="btn-carrito">
+                                    <span><i class="bi bi-cart-plus me-1"></i>Agregar</span>
+                                    <span class="btn-precio">
+                                        ${{ producto.precio|floatformat:0 }}
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
             </div>
         </div>
         {% empty %}
-            <div class="col-12">
-                <div class="alert alert-warning text-center py-4 rounded-3 shadow-sm" role="alert">
-                    😕 No se encontraron productos que coincidan con tu búsqueda.
-                </div>
-            </div>
+        <div class="empty-state">
+            <div class="empty-icon"><i class="bi bi-search"></i></div>
+            <strong>Sin resultados</strong>
+            <p>No hay productos que coincidan con tu búsqueda.</p>
+        </div>
         {% endfor %}
     </div>
 
+    <!-- Paginación -->
     {% if page_obj.has_other_pages %}
-    <nav aria-label="Navegación de productos" class="mt-5">
-        <ul class="pagination justify-content-center">
-            
-            {% if page_obj.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{current_q|default:''}}&sort={{current_sort|default:'alpha_asc'}}&per_page={{current_per_page}}" aria-label="Previous">&laquo; Anterior</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">&laquo; Anterior</span></li>
-            {% endif %}
+    <nav class="paginacion" aria-label="Paginación">
 
-            {% for i in paginator.page_range %}
-                {% if page_obj.number == i %}
-                    <li class="page-item active"><span class="page-link">{{ i }}</span></li>
-                {% else %}
-                    <li class="page-item"><a class="page-link" href="?page={{ i }}&q={{current_q|default:''}}&sort={{current_sort|default:'alpha_asc'}}&per_page={{current_per_page}}">{{ i }}</a></li>
-                {% endif %}
-            {% endfor %}
+        {% if page_obj.has_previous %}
+            <a class="pag-link" href="?page={{ page_obj.previous_page_number }}&q={{ current_q|default:'' }}&sort={{ current_sort|default:'alpha_asc' }}&per_page={{ current_per_page }}">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+        {% else %}
+            <span class="pag-link disabled"><i class="bi bi-chevron-left"></i></span>
+        {% endif %}
 
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{current_q|default:''}}&sort={{current_sort|default:'alpha_asc'}}&per_page={{current_per_page}}" aria-label="Next">Siguiente &raquo;</a>
-                </li>
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <span class="pag-link active">{{ i }}</span>
             {% else %}
-                <li class="page-item disabled"><span class="page-link">Siguiente &raquo;</span></li>
+                <a class="pag-link" href="?page={{ i }}&q={{ current_q|default:'' }}&sort={{ current_sort|default:'alpha_asc' }}&per_page={{ current_per_page }}">{{ i }}</a>
             {% endif %}
-        </ul>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a class="pag-link" href="?page={{ page_obj.next_page_number }}&q={{ current_q|default:'' }}&sort={{ current_sort|default:'alpha_asc' }}&per_page={{ current_per_page }}">
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        {% else %}
+            <span class="pag-link disabled"><i class="bi bi-chevron-right"></i></span>
+        {% endif %}
+
     </nav>
     {% endif %}
-</div>
 
+</div>
 {% endblock %}

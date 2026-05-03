@@ -1,191 +1,744 @@
 {% extends "base.html" %}
-
 {% block title %}Inicio - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <style>
     :root {
-        --color-primario: #2f7d59;
-        --color-secundario: #202422;
-        --color-fondo: #f7f8f4;
-        --color-acento: #d8a12d;
+        --verde:       #1e6b44;
+        --verde-claro: #2d8a58;
+        --verde-muted: #e8f2ec;
+        --oro:         #c9a84c;
+        --oro-muted:   #fdf3dc;
+        --rojo:        #c0392b;
+        --rojo-muted:  #fdecea;
+        --negro:       #141a16;
+        --gris-oscuro: #3a3f3c;
+        --gris-medio:  #7a8078;
+        --gris-claro:  #f2f4f1;
+        --blanco:      #ffffff;
+        --borde:       rgba(30,107,68,.12);
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
 
     body {
-        background-color: var(--color-fondo);
+        background-color: var(--gris-claro);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: var(--gris-oscuro);
+        margin: 0;
     }
 
-    .hero-section {
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
         background:
-            linear-gradient(135deg, rgba(15, 22, 18, 0.92), rgba(47, 125, 89, 0.72)),
-            linear-gradient(45deg, #202422 0%, #2f7d59 55%, #d8a12d 100%);
-        color: white;
-        padding: 92px 0;
-        border-radius: 0 0 20px 20px;
-        margin-bottom: 3rem;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            radial-gradient(ellipse 80% 50% at 5% -10%, rgba(30,107,68,.06) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 95% 110%, rgba(201,168,76,.05) 0%, transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+        position: relative;
+        background: var(--negro);
+        overflow: hidden;
+        padding: 5rem 0 4rem;
+        margin-bottom: 3.5rem;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 70% 80% at 0% 50%, rgba(30,107,68,.55) 0%, transparent 65%),
+            radial-gradient(ellipse 50% 60% at 100% 20%, rgba(201,168,76,.2) 0%, transparent 60%);
+    }
+
+    /* Patrón de puntos decorativo */
+    .hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--oro);
+        margin-bottom: 1.2rem;
+        background: rgba(201,168,76,.12);
+        border: 1px solid rgba(201,168,76,.25);
+        padding: .35rem .85rem;
+        border-radius: 100px;
     }
 
     .hero-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        letter-spacing: 1px;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        color: var(--blanco);
+        line-height: 1.05;
+        margin-bottom: .75rem;
+        letter-spacing: -.02em;
+    }
+
+    .hero-title span {
+        color: var(--oro);
     }
 
     .hero-subtitle {
-        font-size: 1.35rem;
-        font-weight: 300;
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: rgba(255,255,255,.65);
         margin-bottom: 2rem;
-        color: #f4f5ee;
+        max-width: 480px;
     }
 
-    .category-card {
-        border: none;
+    .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: .6rem;
+        padding: .85rem 2rem;
+        background: var(--verde);
+        color: var(--blanco);
         border-radius: 12px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: white;
-        overflow: hidden;
-        height: 100%;
+        font-weight: 700;
+        font-size: .95rem;
+        text-decoration: none;
+        transition: background .2s, transform .2s, box-shadow .2s;
+        border: none;
     }
 
-    .category-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 25px rgba(32, 36, 34, 0.1);
+    .hero-cta:hover {
+        background: var(--verde-claro);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(30,107,68,.4);
+        color: var(--blanco);
     }
 
-    .icon-box {
-        background-color: #eef5ee;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
+    .hero-cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: .6rem;
+        padding: .85rem 1.75rem;
+        background: transparent;
+        color: rgba(255,255,255,.75);
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: .95rem;
+        text-decoration: none;
+        border: 1px solid rgba(255,255,255,.2);
+        transition: all .2s;
+        margin-left: .75rem;
+    }
+
+    .hero-cta-secondary:hover {
+        background: rgba(255,255,255,.08);
+        color: var(--blanco);
+        border-color: rgba(255,255,255,.4);
+    }
+
+    /* Stats en hero */
+    .hero-stats {
+        display: flex;
+        gap: 2.5rem;
+        margin-top: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .hero-stat-value {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--blanco);
+        line-height: 1;
+    }
+
+    .hero-stat-label {
+        font-size: .75rem;
+        color: rgba(255,255,255,.5);
+        margin-top: .2rem;
+        font-weight: 500;
+    }
+
+    /* Imagen decorativa hero */
+    .hero-visual {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 1.5rem auto;
-        font-size: 2rem;
-        color: var(--color-primario);
     }
 
-    .story-section {
-        background-color: white;
-        border-radius: 16px;
-        padding: 3rem;
-        margin-top: 3rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border-left: 5px solid var(--color-primario);
+    .hero-icon-big {
+        font-size: 11rem;
+        color: rgba(255,255,255,.04);
+        position: absolute;
+        right: -1rem;
+        line-height: 1;
+        pointer-events: none;
     }
 
-    .btn-cta {
-        background-color: var(--color-primario);
-        color: white;
-        padding: 12px 30px;
-        border-radius: 30px;
+    .hero-badge-float {
+        background: rgba(255,255,255,.08);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,.15);
+        border-radius: 14px;
+        padding: 1rem 1.25rem;
+        color: var(--blanco);
+        display: inline-flex;
+        align-items: center;
+        gap: .75rem;
+        font-size: .85rem;
         font-weight: 600;
+        animation: floatBadge 3s ease-in-out infinite;
+    }
+
+    .hero-badge-float i { font-size: 1.4rem; color: var(--oro); }
+
+    @keyframes floatBadge {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-8px); }
+    }
+
+    /* ── SECCIÓN TÍTULOS ── */
+    .section-eyebrow {
+        font-size: .7rem;
+        font-weight: 700;
+        letter-spacing: .2em;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        color: var(--verde);
+        margin-bottom: .4rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--negro);
+        letter-spacing: -.02em;
+        margin-bottom: 0;
+    }
+
+    /* ── OFERTAS ── */
+    .ofertas-section {
+        margin-bottom: 3.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .oferta-card {
+        border-radius: 18px;
+        overflow: hidden;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        transition: transform .25s, box-shadow .25s;
+    }
+
+    .oferta-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(0,0,0,.15);
+    }
+
+    /* Oferta 1 — verde principal */
+    .oferta-card.verde {
+        background: linear-gradient(135deg, #1a5c3a 0%, #2d8a58 100%);
+        color: var(--blanco);
+    }
+
+    /* Oferta 2 — oro */
+    .oferta-card.oro {
+        background: linear-gradient(135deg, #b8860b 0%, #e0a020 100%);
+        color: var(--blanco);
+    }
+
+    /* Oferta 3 — oscura */
+    .oferta-card.oscura {
+        background: linear-gradient(135deg, #1a1f1c 0%, #2e3530 100%);
+        color: var(--blanco);
+    }
+
+    .oferta-inner {
+        padding: 2rem;
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 200px;
+    }
+
+    .oferta-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        padding: .3rem .7rem;
+        border-radius: 100px;
+        background: rgba(255,255,255,.18);
+        color: rgba(255,255,255,.9);
+        margin-bottom: .75rem;
+        width: fit-content;
+    }
+
+    .oferta-titulo {
+        font-size: 1.35rem;
+        font-weight: 800;
+        line-height: 1.15;
+        margin-bottom: .4rem;
+    }
+
+    .oferta-desc {
+        font-size: .82rem;
+        opacity: .75;
+        margin-bottom: 1.25rem;
+    }
+
+    .oferta-precio {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .oferta-precio-antes {
+        font-size: .82rem;
+        opacity: .6;
+        text-decoration: line-through;
+        margin-bottom: .1rem;
+    }
+
+    .oferta-link {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        font-size: .82rem;
+        font-weight: 700;
+        color: rgba(255,255,255,.85);
+        text-decoration: none;
+        margin-top: 1rem;
+        transition: gap .2s, color .2s;
+    }
+
+    .oferta-link:hover {
+        color: var(--blanco);
+        gap: .7rem;
+    }
+
+    /* Icono decorativo en oferta */
+    .oferta-deco {
+        position: absolute;
+        right: 1.25rem;
+        bottom: 1rem;
+        font-size: 5rem;
+        opacity: .08;
+        line-height: 1;
+        pointer-events: none;
+    }
+
+    /* ── CATEGORÍAS ── */
+    .categorias-section {
+        margin-bottom: 3.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .cat-card {
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 16px;
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+        transition: transform .22s, box-shadow .22s, border-color .22s;
+        cursor: default;
+        animation: fadeUp .5s ease both;
+    }
+
+    .cat-card:nth-child(1) { animation-delay: .05s }
+    .cat-card:nth-child(2) { animation-delay: .10s }
+    .cat-card:nth-child(3) { animation-delay: .15s }
+
+    .cat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(30,107,68,.1);
+        border-color: rgba(30,107,68,.25);
+    }
+
+    .cat-icon {
+        width: 60px; height: 60px;
+        border-radius: 14px;
+        background: var(--verde-muted);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.6rem;
+        color: var(--verde);
+        margin: 0 auto 1rem;
+        transition: background .22s, color .22s;
+    }
+
+    .cat-card:hover .cat-icon {
+        background: var(--verde);
+        color: var(--blanco);
+    }
+
+    .cat-nombre {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--negro);
+        margin-bottom: .35rem;
+    }
+
+    .cat-desc {
+        font-size: .8rem;
+        color: var(--gris-medio);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* ── HISTORIA ── */
+    .historia-section {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 3.5rem;
+    }
+
+    .historia-panel {
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .historia-left {
+        padding: 2.75rem;
+        border-right: 1px solid var(--borde);
+    }
+
+    .historia-right {
+        background: var(--negro);
+        padding: 2.75rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .historia-right i {
+        font-size: 3.5rem;
+        color: var(--verde-claro);
+        display: block;
+    }
+
+    .historia-right .lugar {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--blanco);
+        margin: 0;
+    }
+
+    .historia-right .sub {
+        font-size: .82rem;
+        color: rgba(255,255,255,.45);
+        margin: 0;
+    }
+
+    .btn-historia {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .65rem 1.4rem;
+        background: var(--negro);
+        color: var(--blanco);
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: .85rem;
+        text-decoration: none;
+        transition: background .2s, transform .15s;
+        margin-top: .75rem;
         border: none;
-        transition: all 0.3s;
     }
 
-    .btn-cta:hover {
-        background-color: #246246;
-        color: white;
-        transform: scale(1.05);
+    .btn-historia:hover {
+        background: var(--verde);
+        color: var(--blanco);
+        transform: translateY(-1px);
     }
 
-    .visit-counter {
-        font-size: 0.9rem;
-        color: #6c757d;
-        margin-top: 4rem;
-        border-top: 1px solid #dee2e6;
-        padding-top: 1rem;
+    /* ── FOOTER MINI ── */
+    .footer-mini {
+        text-align: center;
+        padding: 1.5rem 0 2rem;
+        font-size: .78rem;
+        color: var(--gris-medio);
+        border-top: 1px solid var(--borde);
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ── ANIMACIÓN ── */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+        .hero-cta-secondary { margin-left: 0; margin-top: .5rem; }
+        .historia-left { border-right: none; border-bottom: 1px solid var(--borde); }
+        .hero-stats { gap: 1.5rem; }
     }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid px-0">
-    <div class="hero-section text-center">
-        <div class="container">
-            <h1 class="hero-title">La Junta Coquimbo</h1>
-            <p class="hero-subtitle">Botillería - Vinos - Cervezas - Snacks - Accesorios</p>
-            <p class="lead mb-4">Tu local de confianza para compras rápidas, reuniones y antojos de siempre.</p>
 
-            {% if user.is_authenticated %}
-                <a href="{% url 'pedidos:ver_productos' %}" class="btn btn-cta shadow">
-                    <i class="bi bi-shop me-2"></i> Ver Tienda
-                </a>
-            {% else %}
-                <a href="{% url 'usuarios:login' %}" class="btn btn-cta shadow">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> Iniciar Sesión
-                </a>
-            {% endif %}
+<!-- ── HERO ── -->
+<div class="hero">
+    <div class="container hero-inner">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="hero-eyebrow">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    Coquimbo, Chile
+                </div>
+                <h1 class="hero-title">
+                    La Junta<br><span>Coquimbo</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Botillería, vinos, cervezas, snacks y accesorios. Todo lo que necesitas en un solo lugar.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'pedidos:ver_productos' %}" class="hero-cta">
+                            <i class="bi bi-shop"></i> Ver Tienda
+                        </a>
+                    {% else %}
+                        <a href="{% url 'usuarios:login' %}" class="hero-cta">
+                            <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+                        </a>
+                        <a href="{% url 'pedidos:ver_productos' %}" class="hero-cta-secondary">
+                            Ver Productos <i class="bi bi-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-value">+100</div>
+                        <div class="hero-stat-label">Productos disponibles</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">+18</div>
+                        <div class="hero-stat-label">Años de experiencia</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">{{ visitas }}</div>
+                        <div class="hero-stat-label">Visitas totales</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center" style="gap:1rem; flex-direction:column;">
+                <div class="hero-badge-float">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                    <div>
+                        <div style="font-size:.7rem;opacity:.6;margin-bottom:.15rem">OFERTA DEL DÍA</div>
+                        <div>Pack Cerveza x6 — <strong style="color:var(--oro)">$4.990</strong></div>
+                    </div>
+                </div>
+                <div class="hero-badge-float" style="animation-delay:.8s">
+                    <i class="bi bi-bag-check-fill"></i>
+                    <div>
+                        <div style="font-size:.7rem;opacity:.6;margin-bottom:.15rem">MÁS VENDIDO</div>
+                        <div>Vino Reserva 750ml — <strong style="color:var(--oro)">$6.490</strong></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="container mb-5">
-    <div class="row g-4 text-center">
-        <div class="col-md-4">
-            <div class="card category-card p-4">
-                <div class="icon-box">
-                    <i class="bi bi-cup-straw"></i>
-                </div>
-                <h3 class="h4 fw-bold">Botillería Completa</h3>
-                <p class="text-muted">Alcoholes, vinos, cervezas, espumantes y bebidas para llevar.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card category-card p-4">
-                <div class="icon-box">
-                    <i class="bi bi-bag-heart-fill"></i>
-                </div>
-                <h3 class="h4 fw-bold">Snacks y Dulces</h3>
-                <p class="text-muted">Papas Evercrisp, chocolates Trencito, galletas, energizantes y antojos.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card category-card p-4">
-                <div class="icon-box">
-                    <i class="bi bi-box-seam-fill"></i>
-                </div>
-                <h3 class="h4 fw-bold">Accesorios</h3>
-                <p class="text-muted">Enroladoras, papelillos, encendedores y artículos útiles para el día a día.</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="story-section">
-                <div class="row align-items-center">
-                    <div class="col-md-8">
-                        <h2 class="mb-3 fw-bold text-dark">La Junta</h2>
-                        <p class="text-muted">
-                            <strong>La Junta Coquimbo</strong> es un local pensado para resolver la compra de siempre: botillería, bebidas, snacks, dulces y accesorios en un solo lugar.
-                        </p>
-                        <p class="text-muted">
-                            Mantenemos un catálogo práctico para revisar productos, controlar stock y preparar pedidos de manera simple.
-                        </p>
-                        <a href="{% url 'pedidos:ver_productos' %}" class="btn btn-outline-dark mt-2">
-                            Descubre nuestros productos
-                        </a>
+    <!-- ── OFERTAS ── -->
+    <section class="ofertas-section">
+        <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-2">
+            <div>
+                <div class="section-eyebrow">Promociones</div>
+                <h2 class="section-title">Ofertas de la Semana</h2>
+            </div>
+            <a href="{% url 'pedidos:ver_productos' %}" class="btn-historia" style="margin-top:0">
+                Ver todo <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="row g-3">
+            <!-- Oferta grande -->
+            <div class="col-lg-5">
+                <div class="oferta-card verde h-100">
+                    <div class="oferta-inner">
+                        <div>
+                            <div class="oferta-tag"><i class="bi bi-fire"></i> Oferta estrella</div>
+                            <div class="oferta-titulo">Pack Cerveza Artesanal<br>x 6 unidades</div>
+                            <div class="oferta-desc">Selección de las mejores cervezas artesanales locales. Stock limitado.</div>
+                        </div>
+                        <div>
+                            <div class="oferta-precio-antes">Precio normal: $7.990</div>
+                            <div class="oferta-precio">$5.990</div>
+                            <a href="{% url 'pedidos:ver_productos' %}" class="oferta-link">
+                                Comprar ahora <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-4 text-center d-none d-md-block">
-                        <i class="bi bi-geo-alt-fill text-danger" style="font-size: 4rem;"></i>
-                        <p class="fw-bold mt-2">Coquimbo,<br>Chile</p>
+                    <i class="bi bi-cup-fill oferta-deco"></i>
+                </div>
+            </div>
+
+            <!-- Dos ofertas pequeñas -->
+            <div class="col-lg-7">
+                <div class="row g-3 h-100">
+                    <div class="col-sm-6">
+                        <div class="oferta-card oro h-100">
+                            <div class="oferta-inner">
+                                <div>
+                                    <div class="oferta-tag"><i class="bi bi-star-fill"></i> Destacado</div>
+                                    <div class="oferta-titulo">Vino Tinto Reserva 750ml</div>
+                                    <div class="oferta-desc">Valle del Elqui. Perfecto para compartir.</div>
+                                </div>
+                                <div>
+                                    <div class="oferta-precio-antes">$8.500</div>
+                                    <div class="oferta-precio">$6.490</div>
+                                    <a href="{% url 'pedidos:ver_productos' %}" class="oferta-link">
+                                        Ver producto <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <i class="bi bi-droplet-fill oferta-deco"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="oferta-card oscura h-100">
+                            <div class="oferta-inner">
+                                <div>
+                                    <div class="oferta-tag"><i class="bi bi-bag-fill"></i> Combo</div>
+                                    <div class="oferta-titulo">Combo Snack + Bebida</div>
+                                    <div class="oferta-desc">Evercrisp familiar + bebida 1.5L a precio especial.</div>
+                                </div>
+                                <div>
+                                    <div class="oferta-precio-antes">$4.200</div>
+                                    <div class="oferta-precio">$2.990</div>
+                                    <a href="{% url 'pedidos:ver_productos' %}" class="oferta-link">
+                                        Ver combo <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <i class="bi bi-bag-heart-fill oferta-deco"></i>
+                        </div>
+                    </div>
+
+                    <!-- Banner descuento -->
+                    <div class="col-12">
+                        <div style="background: var(--oro-muted); border:1px solid rgba(201,168,76,.3); border-radius:14px; padding:1rem 1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                            <i class="bi bi-percent" style="font-size:1.8rem; color:var(--oro); flex-shrink:0"></i>
+                            <div style="flex:1">
+                                <div style="font-weight:700; font-size:.95rem; color:var(--negro)">¿Primera compra?</div>
+                                <div style="font-size:.8rem; color:var(--gris-medio)">Usa el código <strong style="color:var(--oro)">BIENVENIDO</strong> y obtén un 10% de descuento en tu pedido.</div>
+                            </div>
+                            <a href="{% url 'pedidos:ver_productos' %}" style="flex-shrink:0; background:var(--oro); color:#fff; border-radius:8px; padding:.45rem 1rem; font-size:.82rem; font-weight:700; text-decoration:none; transition:opacity .2s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+                                Aprovechar
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="text-center visit-counter">
-        <p><small>Has visitado esta página <strong>{{ visitas }}</strong> veces.</small></p>
-        <p class="mb-0">&copy; {% now "Y" %} La Junta Coquimbo - Botillería y minimarket.</p>
+    <!-- ── CATEGORÍAS ── -->
+    <section class="categorias-section">
+        <div class="mb-4">
+            <div class="section-eyebrow">Catálogo</div>
+            <h2 class="section-title">¿Qué estás buscando?</h2>
+        </div>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="cat-card">
+                    <div class="cat-icon"><i class="bi bi-cup-straw"></i></div>
+                    <div class="cat-nombre">Botillería</div>
+                    <p class="cat-desc">Alcoholes, vinos, cervezas, espumantes y bebidas para llevar.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cat-card" style="animation-delay:.1s">
+                    <div class="cat-icon"><i class="bi bi-bag-heart-fill"></i></div>
+                    <div class="cat-nombre">Snacks y Dulces</div>
+                    <p class="cat-desc">Papas Evercrisp, chocolates Trencito, galletas, energizantes y más.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="cat-card" style="animation-delay:.2s">
+                    <div class="cat-icon"><i class="bi bi-box-seam-fill"></i></div>
+                    <div class="cat-nombre">Accesorios</div>
+                    <p class="cat-desc">Enroladoras, papelillos, encendedores y artículos del día a día.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HISTORIA ── -->
+    <section class="historia-section">
+        <div class="historia-panel">
+            <div class="row g-0">
+                <div class="col-md-8 historia-left">
+                    <div class="section-eyebrow">Nuestro Local</div>
+                    <h2 class="section-title mb-3">La Junta</h2>
+                    <p style="font-size:.9rem; color:var(--gris-medio); line-height:1.7; margin-bottom:.75rem">
+                        <strong style="color:var(--negro)">La Junta Coquimbo</strong> es un local pensado para resolver la compra de siempre: botillería, bebidas, snacks, dulces y accesorios en un solo lugar.
+                    </p>
+                    <p style="font-size:.9rem; color:var(--gris-medio); line-height:1.7; margin-bottom:1.25rem">
+                        Mantenemos un catálogo práctico para revisar productos, controlar stock y preparar pedidos de manera simple y rápida.
+                    </p>
+                    <a href="{% url 'pedidos:ver_productos' %}" class="btn-historia">
+                        <i class="bi bi-grid-3x3-gap-fill"></i> Ver todos los productos
+                    </a>
+                </div>
+                <div class="col-md-4 historia-right">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <p class="lugar">Coquimbo, Chile</p>
+                    <p class="sub">Botillería & Minimarket</p>
+                    <div style="width:40px; height:2px; background:var(--verde); border-radius:2px;"></div>
+                    <p style="font-size:.78rem; color:rgba(255,255,255,.35); margin:0">Venta de alcohol solo +18 años</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<div class="container">
+    <div class="footer-mini">
+        &copy; {% now "Y" %} La Junta Coquimbo &mdash; Botillería y Minimarket
     </div>
 </div>
+
 {% endblock %}
