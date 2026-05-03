@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Importar inventario eleventa - La Junta Coquimbo{% endblock %}
+
+{% block extra_head %}
+<style>
+    .import-card {
+        background: white;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .import-header {
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        padding: 1.5rem;
+    }
+
+    .import-body {
+        padding: 1.5rem;
+    }
+
+    .btn-brand {
+        background-color: #2f7d59;
+        color: white;
+        border-radius: 30px;
+        padding: 0.7rem 1.6rem;
+        border: none;
+        font-weight: 600;
+    }
+
+    .btn-brand:hover {
+        background-color: #246246;
+        color: white;
+    }
+
+    .column-list {
+        background-color: #f7f8f4;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5" style="max-width: 900px;">
+    <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+        <div>
+            <h1 class="mb-1">Importar inventario eleventa</h1>
+            <p class="text-muted mb-0">Carga un Excel completo para crear o actualizar productos por codigo.</p>
+        </div>
+        <a href="{% url 'catalogo:producto_list' %}" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left me-1"></i> Volver al inventario
+        </a>
+    </div>
+
+    <div class="import-card">
+        <div class="import-header">
+            <h2 class="h5 mb-2">Archivo esperado</h2>
+            <p class="text-muted mb-0">El archivo debe venir con la primera fila como encabezado.</p>
+        </div>
+        <div class="import-body">
+            <div class="column-list mb-4">
+                <div class="fw-semibold mb-2">Columnas reconocidas desde eleventa:</div>
+                <div class="row g-2 small text-muted">
+                    <div class="col-md-6">Codigo</div>
+                    <div class="col-md-6">Producto</div>
+                    <div class="col-md-6">P. Costo</div>
+                    <div class="col-md-6">P. Venta</div>
+                    <div class="col-md-6">Existencia</div>
+                    <div class="col-md-6">Inv. Minimo</div>
+                    <div class="col-md-6">Inv. Maximo</div>
+                    <div class="col-md-6">Departamento</div>
+                </div>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <div class="mb-4">
+                    <label for="{{ form.archivo.id_for_label }}" class="form-label fw-semibold">Selecciona tu archivo</label>
+                    {{ form.archivo }}
+                    {% if form.archivo.errors %}
+                        <div class="text-danger small mt-2">{{ form.archivo.errors }}</div>
+                    {% endif %}
+                    <div class="form-text">{{ form.archivo.help_text }}</div>
+                </div>
+
+                <button type="submit" class="btn btn-brand">
+                    <i class="bi bi-upload me-2"></i>Importar inventario
+                </button>
+            </form>
+
+            {% if resumen %}
+                <div class="alert alert-success mt-4 mb-0">
+                    <strong>Importacion completada:</strong>
+                    {{ resumen.creados }} creados,
+                    {{ resumen.actualizados }} actualizados,
+                    {{ resumen.omitidos }} omitidos.
+                </div>
+            {% endif %}
+
+            {% if errores %}
+                <div class="alert alert-warning mt-4 mb-0">
+                    <div class="fw-semibold mb-2">Filas omitidas:</div>
+                    <ul class="mb-0">
+                        {% for error in errores %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

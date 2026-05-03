@@ -13,22 +13,22 @@ from django.contrib.messages import constants as msg
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / ".env")  # Carga el .env
+# Carga el archivo .env
+load_dotenv(BASE_DIR / ".env")  
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-unsafe")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "False") == "True"
-# Forzamos DEBUG a True para el entorno de desarrollo
+DEBUG = os.getenv("DJANGO_DEBUG", "True").lower() in ("1", "true", "yes")
+
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]", "*"]
-DEBUG= True
 
 
 # Application definition
 
 # ----------------------------------------------------------------------
-# --- INSTALLED_APPS CORREGIDO ---
+# --- INSTALLED_APPS ---
 # ----------------------------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,14 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # --- TUS NUEVAS APPS ---
-    # Es mejor usar la ruta completa de AppConfig para evitar conflictos
     'core.apps.CoreConfig',
     'usuarios.apps.UsuariosConfig',
     'catalogo.apps.CatalogoConfig',
     'pedidos.apps.PedidosConfig',
-    
-    # --- ¡NUEVA APP AÑADIDA! ---
     'proveedores.apps.ProveedoresConfig',
+    
+    # --- LIBRERÍAS EXTERNAS ---
     'rest_framework',
     'rest_framework.authtoken',
     'api',
@@ -61,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Configuración de Django REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication'
@@ -72,9 +73,9 @@ ROOT_URLCONF = 'monitoreo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Apunta a la carpeta 'templates' en la raíz del proyecto (para base.html)
-        'DIRS': [BASE_DIR.parent / 'templates'],
-        'APP_DIRS': True, # Esto permite que Django encuentre templates dentro de cada app
+        # Apunta a la carpeta 'templates' en la raíz del proyecto (dentro de monitoreo)
+        'DIRS': [BASE_DIR / 'templates'], 
+        'APP_DIRS': True, # Permite que Django encuentre templates dentro de cada app
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -92,17 +93,17 @@ WSGI_APPLICATION = 'monitoreo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# monitoreo/monitoreo/settings.py
-
-# monitoreo/monitoreo/settings.py
+# ----------------------------------------------------------------------
+# --- DATABASES CON VALORES POR DEFECTO (Previene errores NoneType) ---
+# ----------------------------------------------------------------------
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
+        "NAME": os.getenv("DB_NAME", "LaJunta"), 
+        "USER": os.getenv("DB_USER", "root"),
+        "PASSWORD": os.getenv("DB_PASSWORD", ""), # Si no hay contraseña, usa string vacío
+        "HOST": os.getenv("DB_HOST", "localhost"), # Previene el error de startswith
+        "PORT": os.getenv("DB_PORT", "3306"),
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
         }
@@ -141,6 +142,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# Opcional, pero recomendado para recolectar estáticos después:
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -152,17 +155,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ----------------------------------------------------------------------
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # ----------------------------------------------------------------------
-# --- Configuraciones de Autenticación CORREGIDAS ---
+# --- Configuraciones de Autenticación ---
 # ----------------------------------------------------------------------
-# --- AUTH_USER_MODEL CORREGIDO ---
-AUTH_USER_MODEL = 'usuarios.Usuario' # Ahora apunta a la app 'usuarios'
+AUTH_USER_MODEL = 'usuarios.Usuario' # Apunta a tu modelo personalizado
 
-# --- URLs CORREGIDAS ---
-# Usamos los nombres de las rutas (namespaces) para más seguridad
+# URLs de redirección
 LOGIN_REDIRECT_URL = 'core:dashboard'
 LOGOUT_REDIRECT_URL = 'usuarios:login'
 LOGIN_URL = 'usuarios:login'

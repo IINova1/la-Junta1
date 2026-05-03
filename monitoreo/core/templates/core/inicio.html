@@ -1,39 +1,33 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "base.html" %}
 
-{% block title %}Inicio - La Fornería{% endblock %}
+{% block title %}Inicio - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
 <style>
-    /* --- Estilos Personalizados para el Inicio --- */
-    
-    /* Paleta de colores inspirada en el PDF (Pan, Café, Moderno) */
     :root {
-        --color-primario: #c07949; /* Tono pan dorado/terracota */
-        --color-secundario: #2c2c2c; /* Gris oscuro/Negro industrial */
-        --color-crema: #f9f7f2; /* Fondo suave */
+        --color-primario: #2f7d59;
+        --color-secundario: #202422;
+        --color-fondo: #f7f8f4;
+        --color-acento: #d8a12d;
     }
 
     body {
-        background-color: var(--color-crema);
+        background-color: var(--color-fondo);
     }
 
-    /* HERO SECTION (Portada) */
     .hero-section {
-        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{% static "img/bakery_hero.jpg" %}');
-        /* Si no tienes imagen, usa un gradiente elegante */
-        background: linear-gradient(135deg, #434343 0%, #000000 100%);
-        background-size: cover;
-        background-position: center;
+        background:
+            linear-gradient(135deg, rgba(15, 22, 18, 0.92), rgba(47, 125, 89, 0.72)),
+            linear-gradient(45deg, #202422 0%, #2f7d59 55%, #d8a12d 100%);
         color: white;
-        padding: 100px 0;
+        padding: 92px 0;
         border-radius: 0 0 20px 20px;
         margin-bottom: 3rem;
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
     .hero-title {
-        font-family: 'Playfair Display', serif; /* Fuente elegante si se carga, sino serif */
+        font-family: 'Playfair Display', serif;
         font-size: 3.5rem;
         font-weight: 700;
         margin-bottom: 1rem;
@@ -41,16 +35,15 @@
     }
 
     .hero-subtitle {
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         font-weight: 300;
         margin-bottom: 2rem;
-        color: #f0f0f0;
+        color: #f4f5ee;
     }
 
-    /* TARJETAS DE CATEGORÍAS */
     .category-card {
         border: none;
-        border-radius: 15px;
+        border-radius: 12px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         background-color: white;
         overflow: hidden;
@@ -58,12 +51,12 @@
     }
 
     .category-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(32, 36, 34, 0.1);
     }
 
     .icon-box {
-        background-color: var(--color-crema);
+        background-color: #eef5ee;
         width: 80px;
         height: 80px;
         border-radius: 50%;
@@ -75,10 +68,9 @@
         color: var(--color-primario);
     }
 
-    /* SECCIÓN DE HISTORIA */
     .story-section {
         background-color: white;
-        border-radius: 20px;
+        border-radius: 16px;
         padding: 3rem;
         margin-top: 3rem;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -98,12 +90,11 @@
     }
 
     .btn-cta:hover {
-        background-color: #a05e32;
+        background-color: #246246;
         color: white;
         transform: scale(1.05);
     }
 
-    /* CONTADOR DE VISITAS */
     .visit-counter {
         font-size: 0.9rem;
         color: #6c757d;
@@ -119,10 +110,10 @@
 <div class="container-fluid px-0">
     <div class="hero-section text-center">
         <div class="container">
-            <h1 class="hero-title">La Fornería</h1>
-            <p class="hero-subtitle">Cafetería • Panadería • Pastelería • Emporio</p>
-            <p class="lead mb-4">"Donde la cocina y el horno son protagonistas de una experiencia auténtica"</p>
-            
+            <h1 class="hero-title">La Junta Coquimbo</h1>
+            <p class="hero-subtitle">Botillería - Vinos - Cervezas - Snacks - Accesorios</p>
+            <p class="lead mb-4">Tu local de confianza para compras rápidas, reuniones y antojos de siempre.</p>
+
             {% if user.is_authenticated %}
                 <a href="{% url 'pedidos:ver_productos' %}" class="btn btn-cta shadow">
                     <i class="bi bi-shop me-2"></i> Ver Tienda
@@ -137,36 +128,32 @@
 </div>
 
 <div class="container mb-5">
-    
     <div class="row g-4 text-center">
         <div class="col-md-4">
             <div class="card category-card p-4">
                 <div class="icon-box">
-                    <i class="bi bi-cup-hot-fill"></i> </div>
-                <h3 class="h4 fw-bold">Calidez Artesanal</h3>
-                <p class="text-muted">
-                    Inspirados en el término italiano <em>forno</em>. Ofrecemos productos frescos y un ambiente acogedor y familiar.
-                </p>
+                    <i class="bi bi-cup-straw"></i>
+                </div>
+                <h3 class="h4 fw-bold">Botillería Completa</h3>
+                <p class="text-muted">Alcoholes, vinos, cervezas, espumantes y bebidas para llevar.</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card category-card p-4">
                 <div class="icon-box">
-                    <i class="bi bi-heart-pulse-fill"></i> </div>
-                <h3 class="h4 fw-bold">Conciencia Alimentaria</h3>
-                <p class="text-muted">
-                    Disfruta de opciones deliciosas, saludables, sin gluten, sin azúcar añadida y alternativas veganas.
-                </p>
+                    <i class="bi bi-bag-heart-fill"></i>
+                </div>
+                <h3 class="h4 fw-bold">Snacks y Dulces</h3>
+                <p class="text-muted">Papas Evercrisp, chocolates Trencito, galletas, energizantes y antojos.</p>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card category-card p-4">
                 <div class="icon-box">
-                    <i class="bi bi-basket2-fill"></i> </div>
-                <h3 class="h4 fw-bold">Emporio Gourmet</h3>
-                <p class="text-muted">
-                    Una fina selección de pastas, mariscos, charcutería local y productos premium listos para llevar.
-                </p>
+                    <i class="bi bi-box-seam-fill"></i>
+                </div>
+                <h3 class="h4 fw-bold">Accesorios</h3>
+                <p class="text-muted">Enroladoras, papelillos, encendedores y artículos útiles para el día a día.</p>
             </div>
         </div>
     </div>
@@ -176,12 +163,12 @@
             <div class="story-section">
                 <div class="row align-items-center">
                     <div class="col-md-8">
-                        <h2 class="mb-3 fw-bold text-dark">Nuestra Historia</h2>
+                        <h2 class="mb-3 fw-bold text-dark">La Junta</h2>
                         <p class="text-muted">
-                            Fundada en mayo de 2024 en La Serena, <strong>La Fornería</strong> nace de la pasión compartida por la cocina y las raíces italianas de Javier y Loretta.
+                            <strong>La Junta Coquimbo</strong> es un local pensado para resolver la compra de siempre: botillería, bebidas, snacks, dulces y accesorios en un solo lugar.
                         </p>
                         <p class="text-muted">
-                            Lo que comenzó como un encuentro casual en vacaciones, se transformó en un proyecto con identidad propia que combina tradición, calidad y un profundo respeto por el buen comer. Más que una tienda, somos un espacio de encuentro.
+                            Mantenemos un catálogo práctico para revisar productos, controlar stock y preparar pedidos de manera simple.
                         </p>
                         <a href="{% url 'pedidos:ver_productos' %}" class="btn btn-outline-dark mt-2">
                             Descubre nuestros productos
@@ -189,7 +176,7 @@
                     </div>
                     <div class="col-md-4 text-center d-none d-md-block">
                         <i class="bi bi-geo-alt-fill text-danger" style="font-size: 4rem;"></i>
-                        <p class="fw-bold mt-2">Los Arrayanes 901,<br>La Serena</p>
+                        <p class="fw-bold mt-2">Coquimbo,<br>Chile</p>
                     </div>
                 </div>
             </div>
@@ -198,8 +185,7 @@
 
     <div class="text-center visit-counter">
         <p><small>Has visitado esta página <strong>{{ visitas }}</strong> veces.</small></p>
-        <p class="mb-0">&copy; {% now "Y" %} La Fornería - Tienda de Especialidad.</p>
+        <p class="mb-0">&copy; {% now "Y" %} La Junta Coquimbo - Botillería y minimarket.</p>
     </div>
-
 </div>
 {% endblock %}

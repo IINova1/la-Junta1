@@ -40,9 +40,11 @@ class Nutricional(models.Model):
 
 # --- Producto ---
 class Producto(models.Model):
+    codigo = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     nombre = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=300, blank=True, null=True)
     marca = models.CharField(max_length=100, blank=True, null=True)
+    costo = models.IntegerField(blank=True, null=True, validators=[no_negativo])
     precio = models.IntegerField(blank=True, null=True, validators=[no_negativo])
     caducidad = models.DateField()
     elaboracion = models.DateField(blank=True, null=True)
@@ -75,6 +77,9 @@ class Producto(models.Model):
         # Precio no negativo
         if self.precio is not None and self.precio < 0:
             errors['precio'] = 'El precio no puede ser negativo.'
+
+        if self.costo is not None and self.costo < 0:
+            errors['costo'] = 'El costo no puede ser negativo.'
 
         # Caducidad mayor que elaboración si existe
         if self.elaboracion and self.caducidad and self.caducidad < self.elaboracion:

@@ -22,7 +22,7 @@ class ProveedorForm(forms.ModelForm):
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'rubro': forms.TextInput(attrs={
                 'class': 'form-control', 
-                'placeholder': 'Ej: Panadería, Transporte, Equipos...'
+                'placeholder': 'Ej: Distribuidora, Bebidas, Snacks...'
             }),
         }
 

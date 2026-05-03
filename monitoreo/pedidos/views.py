@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, permission_required
+from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -150,6 +151,7 @@ def ver_carrito(request):
 
 
 @login_required
+@require_POST
 def realizar_pedido(request):
     """
     Procesa el carrito y crea un Pedido en la base de datos.
@@ -193,13 +195,13 @@ def realizar_pedido(request):
     # 4. Limpiar carrito
     request.session['carrito'] = {}
     
-    messages.success(request, "¡Pedido realizado con éxito!")
+    messages.success(request, "Pedido confirmado. El pago se realiza en efectivo.")
     return redirect('pedidos:pedido_exitoso')
 
 
 def pedido_exitoso(request):
     """
-    Pantalla de confirmación de compra.
+    Pantalla de confirmacion del pedido en efectivo.
     """
     return render(request, 'pedidos/pedido_exitoso.html')
 

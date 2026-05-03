@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
 from datetime import date, timedelta
 # --- IMPORTACIONES PARA GRÁFICOS Y AGREGACIÓN ---
-from django.db.models import Sum
+from django.db.models import F, Sum
 from django.db.models.functions import TruncDate
 import json
 
@@ -11,6 +11,7 @@ from usuarios.models import Usuario
 from catalogo.models import Producto
 from pedidos.models import Pedido, Cliente
 from proveedores.models import Proveedor
+from .models import ContadorVisitas
 
 # --------------------
 # Vistas Públicas (Para todos)
@@ -20,10 +21,20 @@ def inicio(request):
     """
     Vista para la página de inicio pública.
     """
-    visitas = request.session.get('visitas', 0)
-    request.session['visitas'] = visitas + 1
+    contador, _ = ContadorVisitas.objects.get_or_create(nombre='sitio')
+    es_visitante_nuevo = not request.session.get('visito_la_junta')
+
+    ContadorVisitas.objects.filter(pk=contador.pk).update(
+        total_visitas=F('total_visitas') + 1,
+        visitantes_unicos=F('visitantes_unicos') + (1 if es_visitante_nuevo else 0),
+    )
+
+    if es_visitante_nuevo:
+        request.session['visito_la_junta'] = True
+
+    contador.refresh_from_db()
     context = {
-        'visitas': request.session.get('visitas')
+        'visitas': contador.total_visitas
     }
     return render(request, 'core/inicio.html', context)
 
@@ -41,6 +52,7 @@ def dashboard(request):
     total_clientes = Cliente.objects.count()
     total_proveedores = Proveedor.objects.count()
     total_pedidos_pendientes = Pedido.objects.filter(estado='Pendiente').count()
+    contador_visitas, _ = ContadorVisitas.objects.get_or_create(nombre='sitio')
     
     # 2. Productos por vencer (Lógica existente)
     hoy = date.today()
@@ -79,6 +91,8 @@ def dashboard(request):
         'total_clientes': total_clientes,
         'total_proveedores': total_proveedores,
         'total_pedidos_pendientes': total_pedidos_pendientes,
+        'total_visitas': contador_visitas.total_visitas,
+        'visitantes_unicos': contador_visitas.visitantes_unicos,
         'productos_a_vencer': productos_a_vencer,
         
         # Datos para el gráfico (convertidos a JSON string para seguridad en JS)

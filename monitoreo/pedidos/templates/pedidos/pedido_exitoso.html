@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}🎉 Pedido Exitoso{% endblock %}
+{% block title %}Pedido confirmado{% endblock %}
 {% block content %}
 
 <style>
@@ -114,9 +114,9 @@
 
 <div class="container text-center">
     <div class="pedido-exitoso">
-        <div class="icono-check">✅</div>
-        <h2>¡Gracias por tu pedido!</h2>
-        <p>Tu pedido ha sido recibido y está siendo procesado.<br>Te avisaremos cuando esté listo 🍰</p>
+        <div class="icono-check"><i class="bi bi-check-circle-fill"></i></div>
+        <h2>Pedido confirmado</h2>
+        <p>Tu pedido fue recibido y quedo pendiente de pago en efectivo.<br>Te avisaremos cuando este listo para retirar o recibir.</p>
         <a href="{% url 'pedidos:ver_productos' %}" class="btn btn-primary">Seguir comprando</a>
     </div>
 </div>

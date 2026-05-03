@@ -8,7 +8,7 @@ class Proveedor(models.Model):
         verbose_name='RUT',
     )
     nombre_empresa = models.CharField(
-        max_length=200,
+        max_length=150,
         verbose_name='Nombre Empresa',
         unique=True,
         validators=[MinLengthValidator(2, "El nombre de la empresa debe tener al menos 2 caracteres.")]

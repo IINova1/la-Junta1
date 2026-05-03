@@ -6,7 +6,7 @@ class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
         fields = [
-            'nombre', 'descripcion', 'marca', 'precio', 'caducidad', 
+            'codigo', 'nombre', 'descripcion', 'marca', 'costo', 'precio', 'caducidad',
             'elaboracion', 'tipo', 'Categorias', 'Nutricional',
             'stock_actual', 'stock_minimo', 'stock_maximo', 
             'presentacion', 'formato', 'imagen'
@@ -29,6 +29,12 @@ class ProductoForm(forms.ModelForm):
         if precio is not None and precio < 0:
             raise ValidationError('El precio no puede ser negativo.')
         return precio
+
+    def clean_costo(self):
+        costo = self.cleaned_data.get('costo')
+        if costo is not None and costo < 0:
+            raise ValidationError('El costo no puede ser negativo.')
+        return costo
 
     def clean(self):
         cleaned_data = super().clean()
@@ -58,6 +64,17 @@ class ProductoForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+
+class ImportarInventarioEleventaForm(forms.Form):
+    archivo = forms.FileField(
+        label='Archivo de inventario',
+        help_text='Sube un archivo .xlsx, .xlsm o .csv exportado desde eleventa.',
+        widget=forms.ClearableFileInput(attrs={
+            'class': 'form-control',
+            'accept': '.xlsx,.xlsm,.csv',
+        })
+    )
 
 class CategoriaForm(forms.ModelForm):
     class Meta:

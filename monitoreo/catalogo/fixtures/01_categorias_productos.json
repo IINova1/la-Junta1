@@ -2,141 +2,455 @@
   {
     "model": "catalogo.categoria",
     "pk": 21,
-    "fields": { "nombre": "Panadería", "descripcion": "Pan fresco, artesanal y de masa madre." }
+    "fields": {
+      "nombre": "Vinos y Espumantes",
+      "descripcion": "Vinos tintos, blancos, rose y espumantes para distintas ocasiones."
+    }
   },
   {
     "model": "catalogo.categoria",
     "pk": 22,
-    "fields": { "nombre": "Pastelería", "descripcion": "Pasteles, postres y bocadillos dulces." }
+    "fields": {
+      "nombre": "Cervezas y Licores",
+      "descripcion": "Cervezas, destilados y alcoholes en formatos individuales y familiares."
+    }
   },
   {
     "model": "catalogo.categoria",
     "pk": 23,
-    "fields": { "nombre": "Cafetería y Bebidas", "descripcion": "Café de grano, tés, jugos y más." }
+    "fields": {
+      "nombre": "Bebidas y Energeticas",
+      "descripcion": "Bebidas, aguas, jugos, tonicas y energeticas."
+    }
   },
   {
     "model": "catalogo.categoria",
     "pk": 24,
-    "fields": { "nombre": "Bocadillos y Salados", "descripcion": "Empanadas, sándwiches y otras delicias saladas." }
+    "fields": {
+      "nombre": "Snacks y Dulces",
+      "descripcion": "Papas Evercrisp, chocolates Trencito, galletas y otros antojos."
+    }
   },
   {
     "model": "catalogo.categoria",
     "pk": 25,
-    "fields": { "nombre": "Especiales de Temporada", "descripcion": "Productos exclusivos por tiempo limitado." }
+    "fields": {
+      "nombre": "Accesorios",
+      "descripcion": "Papelillos, enroladoras, encendedores y articulos complementarios."
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 31,
-    "fields": { "nombre": "Pan Baguette", "descripcion": "Pan de corteza crujiente e interior suave.", "marca": "La Fornería", "precio": 1500, "caducidad": "2025-10-05", "elaboracion": "2025-10-03", "tipo": "Artesanal", "Categorias": 21, "stock_actual": 50, "stock_minimo": 10, "stock_maximo": 100, "Nutricional": 11 }
+    "fields": {
+      "nombre": "Vino Tinto Cabernet Sauvignon 750cc",
+      "descripcion": "Vino chileno clasico para comidas y juntas.",
+      "marca": "La Junta Seleccion",
+      "precio": 5990,
+      "caducidad": "2027-12-31",
+      "elaboracion": "2026-01-10",
+      "tipo": "Vino tinto",
+      "Categorias": 21,
+      "stock_actual": 24,
+      "stock_minimo": 6,
+      "stock_maximo": 60,
+      "Nutricional": 11
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 32,
-    "fields": { "nombre": "Croissant de Mantequilla", "descripcion": "Clásico croissant francés, laminado a la perfección.", "marca": "La Fornería", "precio": 1200, "caducidad": "2025-10-06", "elaboracion": "2025-10-04", "tipo": "Hojaldre", "Categorias": 22, "stock_actual": 30, "stock_minimo": 5, "stock_maximo": 60, "Nutricional": 12 }
+    "fields": {
+      "nombre": "Vino Blanco Sauvignon Blanc 750cc",
+      "descripcion": "Botella fresca y liviana para compartir.",
+      "marca": "La Junta Seleccion",
+      "precio": 5490,
+      "caducidad": "2027-12-31",
+      "elaboracion": "2026-01-10",
+      "tipo": "Vino blanco",
+      "Categorias": 21,
+      "stock_actual": 18,
+      "stock_minimo": 5,
+      "stock_maximo": 45,
+      "Nutricional": 12
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 33,
-    "fields": { "nombre": "Torta de Chocolate Belga", "descripcion": "Torta intensa de chocolate belga con triple capa.", "marca": "Pastelería Fina", "precio": 15000, "caducidad": "2025-10-10", "elaboracion": "2025-10-03", "tipo": "Postre", "Categorias": 22, "stock_actual": 10, "stock_minimo": 2, "stock_maximo": 15, "Nutricional": 13 }
+    "fields": {
+      "nombre": "Espumante Brut 750cc",
+      "descripcion": "Espumante seco para celebraciones.",
+      "marca": "Viñamar",
+      "precio": 7490,
+      "caducidad": "2027-10-31",
+      "elaboracion": "2026-01-12",
+      "tipo": "Espumante",
+      "Categorias": 21,
+      "stock_actual": 12,
+      "stock_minimo": 4,
+      "stock_maximo": 36,
+      "Nutricional": 13
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 34,
-    "fields": { "nombre": "Pan Multigrano", "descripcion": "Saludable pan con mezcla de 5 semillas.", "marca": "La Fornería", "precio": 2500, "caducidad": "2025-10-08", "elaboracion": "2025-10-03", "tipo": "Integral", "Categorias": 21, "stock_actual": 40, "stock_minimo": 10, "stock_maximo": 80, "Nutricional": 14 }
+    "fields": {
+      "nombre": "Vino Rose 750cc",
+      "descripcion": "Rose suave para servir frio.",
+      "marca": "Santa Rita",
+      "precio": 4990,
+      "caducidad": "2027-11-30",
+      "elaboracion": "2026-01-15",
+      "tipo": "Vino rose",
+      "Categorias": 21,
+      "stock_actual": 15,
+      "stock_minimo": 5,
+      "stock_maximo": 40,
+      "Nutricional": 14
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 35,
-    "fields": { "nombre": "Hogaza de Masa Madre", "descripcion": "Pan rústico de larga fermentación y gran sabor.", "marca": "La Fornería", "precio": 3500, "caducidad": "2025-10-09", "elaboracion": "2025-10-02", "tipo": "Masa Madre", "Categorias": 21, "stock_actual": 20, "stock_minimo": 5, "stock_maximo": 40, "Nutricional": 15 }
+    "fields": {
+      "nombre": "Cerveza Cristal Lata 470cc",
+      "descripcion": "Cerveza lager chilena en lata individual.",
+      "marca": "Cristal",
+      "precio": 1290,
+      "caducidad": "2026-12-15",
+      "elaboracion": "2026-02-01",
+      "tipo": "Cerveza",
+      "Categorias": 22,
+      "stock_actual": 80,
+      "stock_minimo": 20,
+      "stock_maximo": 160,
+      "Nutricional": 15
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 36,
-    "fields": { "nombre": "Kuchen de Manzana", "descripcion": "Tradicional pastel de manzana y canela.", "marca": "Pastelería Fina", "precio": 8000, "caducidad": "2025-10-08", "elaboracion": "2025-10-03", "tipo": "Dulce", "Categorias": 22, "stock_actual": 15, "stock_minimo": 3, "stock_maximo": 25, "Nutricional": 16 }
+    "fields": {
+      "nombre": "Pack Cerveza Escudo 6x470cc",
+      "descripcion": "Pack de seis latas para compartir.",
+      "marca": "Escudo",
+      "precio": 6990,
+      "caducidad": "2026-12-20",
+      "elaboracion": "2026-02-01",
+      "tipo": "Cerveza pack",
+      "Categorias": 22,
+      "stock_actual": 35,
+      "stock_minimo": 8,
+      "stock_maximo": 80,
+      "Nutricional": 16
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 37,
-    "fields": { "nombre": "Cheesecake de Frambuesa", "descripcion": "Suave cheesecake con mermelada de frambuesa casera.", "marca": "Pastelería Fina", "precio": 12000, "caducidad": "2025-10-09", "elaboracion": "2025-10-03", "tipo": "Postre Frío", "Categorias": 22, "stock_actual": 12, "stock_minimo": 2, "stock_maximo": 20, "Nutricional": 17 }
+    "fields": {
+      "nombre": "Pisco Alto del Carmen 35 750cc",
+      "descripcion": "Pisco chileno para piscola y cocteles.",
+      "marca": "Alto del Carmen",
+      "precio": 8990,
+      "caducidad": "2028-12-31",
+      "elaboracion": "2026-01-20",
+      "tipo": "Pisco",
+      "Categorias": 22,
+      "stock_actual": 22,
+      "stock_minimo": 6,
+      "stock_maximo": 60,
+      "Nutricional": 17
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 38,
-    "fields": { "nombre": "Café Americano", "descripcion": "Espresso doble diluido en agua caliente.", "marca": "Café del Bueno", "precio": 1800, "caducidad": "2026-01-01", "elaboracion": "2025-10-04", "tipo": "Bebida", "Categorias": 23, "stock_actual": 100, "stock_minimo": 20, "stock_maximo": 200, "Nutricional": 18 }
+    "fields": {
+      "nombre": "Ron Pampero Especial 750cc",
+      "descripcion": "Ron añejo ideal para combinados.",
+      "marca": "Pampero",
+      "precio": 9990,
+      "caducidad": "2028-12-31",
+      "elaboracion": "2026-01-20",
+      "tipo": "Ron",
+      "Categorias": 22,
+      "stock_actual": 16,
+      "stock_minimo": 4,
+      "stock_maximo": 40,
+      "Nutricional": 18
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 39,
-    "fields": { "nombre": "Capuccino Italiano", "descripcion": "El balance perfecto entre café, leche y espuma.", "marca": "Café del Bueno", "precio": 2200, "caducidad": "2026-01-01", "elaboracion": "2025-10-04", "tipo": "Bebida", "Categorias": 23, "stock_actual": 100, "stock_minimo": 20, "stock_maximo": 200, "Nutricional": 19 }
+    "fields": {
+      "nombre": "Vodka Stolichnaya 750cc",
+      "descripcion": "Vodka clasico para cocteleria.",
+      "marca": "Stolichnaya",
+      "precio": 11990,
+      "caducidad": "2028-12-31",
+      "elaboracion": "2026-01-20",
+      "tipo": "Vodka",
+      "Categorias": 22,
+      "stock_actual": 10,
+      "stock_minimo": 3,
+      "stock_maximo": 30,
+      "Nutricional": 19
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 40,
-    "fields": { "nombre": "Té Chai Latte", "descripcion": "Té negro especiado con leche vaporizada.", "marca": "Infusiones del Mundo", "precio": 2500, "caducidad": "2026-01-01", "elaboracion": "2025-10-04", "tipo": "Bebida", "Categorias": 23, "stock_actual": 80, "stock_minimo": 15, "stock_maximo": 150, "Nutricional": 20 }
+    "fields": {
+      "nombre": "Bebida Coca-Cola 1.5L",
+      "descripcion": "Bebida familiar para acompañar compras y pedidos.",
+      "marca": "Coca-Cola",
+      "precio": 2190,
+      "caducidad": "2026-11-30",
+      "elaboracion": "2026-03-01",
+      "tipo": "Bebida",
+      "Categorias": 23,
+      "stock_actual": 60,
+      "stock_minimo": 15,
+      "stock_maximo": 140,
+      "Nutricional": 20
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 41,
-    "fields": { "nombre": "Jugo de Naranja Natural", "descripcion": "Jugo recién exprimido, 100% natural.", "marca": "La Fornería", "precio": 2000, "caducidad": "2025-10-05", "elaboracion": "2025-10-04", "tipo": "Bebida Fría", "Categorias": 23, "stock_actual": 50, "stock_minimo": 10, "stock_maximo": 100, "Nutricional": 21 }
+    "fields": {
+      "nombre": "Energetica Red Bull 250cc",
+      "descripcion": "Bebida energetica en lata individual.",
+      "marca": "Red Bull",
+      "precio": 1990,
+      "caducidad": "2026-10-31",
+      "elaboracion": "2026-03-05",
+      "tipo": "Energetica",
+      "Categorias": 23,
+      "stock_actual": 45,
+      "stock_minimo": 12,
+      "stock_maximo": 100,
+      "Nutricional": 21
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 42,
-    "fields": { "nombre": "Sándwich Pavo-Queso", "descripcion": "En pan de molde integral con lechuga y tomate.", "marca": "La Fornería", "precio": 4500, "caducidad": "2025-10-06", "elaboracion": "2025-10-04", "tipo": "Salado", "Categorias": 24, "stock_actual": 25, "stock_minimo": 5, "stock_maximo": 50, "Nutricional": 22 }
+    "fields": {
+      "nombre": "Agua Mineral Cachantun 1.6L",
+      "descripcion": "Agua mineral sin gas formato familiar.",
+      "marca": "Cachantun",
+      "precio": 1290,
+      "caducidad": "2027-03-31",
+      "elaboracion": "2026-03-01",
+      "tipo": "Agua",
+      "Categorias": 23,
+      "stock_actual": 50,
+      "stock_minimo": 12,
+      "stock_maximo": 120,
+      "Nutricional": 22
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 43,
-    "fields": { "nombre": "Triángulo de Espinaca-Ricota", "descripcion": "Delicioso bocadillo de hojaldre relleno.", "marca": "La Fornería", "precio": 1800, "caducidad": "2025-10-06", "elaboracion": "2025-10-04", "tipo": "Salado", "Categorias": 24, "stock_actual": 30, "stock_minimo": 10, "stock_maximo": 60, "Nutricional": 23 }
+    "fields": {
+      "nombre": "Tonica Canada Dry 1.5L",
+      "descripcion": "Tonica para tragos y mezclas.",
+      "marca": "Canada Dry",
+      "precio": 1890,
+      "caducidad": "2026-11-30",
+      "elaboracion": "2026-03-02",
+      "tipo": "Bebida tonica",
+      "Categorias": 23,
+      "stock_actual": 30,
+      "stock_minimo": 8,
+      "stock_maximo": 80,
+      "Nutricional": 23
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 44,
-    "fields": { "nombre": "Empanada de Pino", "descripcion": "Clásica empanada chilena horneada.", "marca": "Sabores Criollos", "precio": 2200, "caducidad": "2025-10-06", "elaboracion": "2025-10-04", "tipo": "Salado", "Categorias": 24, "stock_actual": 40, "stock_minimo": 10, "stock_maximo": 80, "Nutricional": 24 }
+    "fields": {
+      "nombre": "Papas Evercrisp Corte Americano 230g",
+      "descripcion": "Papas fritas crujientes para compartir.",
+      "marca": "Evercrisp",
+      "precio": 2990,
+      "caducidad": "2026-09-30",
+      "elaboracion": "2026-03-10",
+      "tipo": "Snack salado",
+      "Categorias": 24,
+      "stock_actual": 45,
+      "stock_minimo": 10,
+      "stock_maximo": 100,
+      "Nutricional": 24
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 45,
-    "fields": { "nombre": "Calzones Rotos (Porción)", "descripcion": "Dulce tradicional de invierno, frito y esponjoso.", "marca": "La Fornería", "precio": 2500, "caducidad": "2025-10-06", "elaboracion": "2025-10-04", "tipo": "Fritura Dulce", "Categorias": 25, "stock_actual": 20, "stock_minimo": 5, "stock_maximo": 40, "Nutricional": 25 }
+    "fields": {
+      "nombre": "Papas Evercrisp Marco Polo 180g",
+      "descripcion": "Snack sabor intenso en formato familiar.",
+      "marca": "Evercrisp",
+      "precio": 2790,
+      "caducidad": "2026-09-30",
+      "elaboracion": "2026-03-10",
+      "tipo": "Snack salado",
+      "Categorias": 24,
+      "stock_actual": 38,
+      "stock_minimo": 10,
+      "stock_maximo": 90,
+      "Nutricional": 25
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 46,
-    "fields": { "nombre": "Pan de Pascua", "descripcion": "Exclusivo de Navidad, con frutos secos y fruta confitada.", "marca": "La Fornería", "precio": 7900, "caducidad": "2025-12-30", "elaboracion": "2025-10-01", "tipo": "Dulce Navideño", "Categorias": 25, "stock_actual": 50, "stock_minimo": 0, "stock_maximo": 100, "Nutricional": 26 }
+    "fields": {
+      "nombre": "Chocolate Trencito 150g",
+      "descripcion": "Chocolate clasico para antojos y regalos simples.",
+      "marca": "Nestle",
+      "precio": 2490,
+      "caducidad": "2026-12-31",
+      "elaboracion": "2026-03-12",
+      "tipo": "Chocolate",
+      "Categorias": 24,
+      "stock_actual": 55,
+      "stock_minimo": 12,
+      "stock_maximo": 120,
+      "Nutricional": 26
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 47,
-    "fields": { "nombre": "Barra de Granola Casera", "descripcion": "Snack saludable con avena, miel y frutos secos.", "marca": "La Fornería", "precio": 1500, "caducidad": "2025-11-15", "elaboracion": "2025-10-02", "tipo": "Snack", "Categorias": 22, "stock_actual": 60, "stock_minimo": 15, "stock_maximo": 120, "Nutricional": 27 }
+    "fields": {
+      "nombre": "Galletas Triton Chocolate",
+      "descripcion": "Galletas dulces para acompañar bebidas y snacks.",
+      "marca": "Costa",
+      "precio": 1390,
+      "caducidad": "2026-11-30",
+      "elaboracion": "2026-03-12",
+      "tipo": "Galletas",
+      "Categorias": 24,
+      "stock_actual": 40,
+      "stock_minimo": 10,
+      "stock_maximo": 100,
+      "Nutricional": 27
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 48,
-    "fields": { "nombre": "Macarons (Caja de 6)", "descripcion": "Finos dulces franceses de distintos sabores.", "marca": "Pastelería Fina", "precio": 6000, "caducidad": "2025-10-10", "elaboracion": "2025-10-03", "tipo": "Dulce Fino", "Categorias": 22, "stock_actual": 20, "stock_minimo": 5, "stock_maximo": 30, "Nutricional": 28 }
+    "fields": {
+      "nombre": "Mani Salado 160g",
+      "descripcion": "Mani salado para picoteo.",
+      "marca": "Marco Polo",
+      "precio": 1690,
+      "caducidad": "2026-10-31",
+      "elaboracion": "2026-03-15",
+      "tipo": "Snack salado",
+      "Categorias": 24,
+      "stock_actual": 35,
+      "stock_minimo": 8,
+      "stock_maximo": 80,
+      "Nutricional": 28
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 49,
-    "fields": { "nombre": "Trufas de Chocolate", "descripcion": "Bocadillos intensos de chocolate negro.", "marca": "Pastelería Fina", "precio": 800, "caducidad": "2025-10-20", "elaboracion": "2025-10-03", "tipo": "Chocolatería", "Categorias": 22, "stock_actual": 50, "stock_minimo": 10, "stock_maximo": 100, "Nutricional": 29 }
+    "fields": {
+      "nombre": "Papelillos OCB Premium",
+      "descripcion": "Papelillos delgados para enrolar.",
+      "marca": "OCB",
+      "precio": 1200,
+      "caducidad": "2030-12-31",
+      "elaboracion": "2026-01-01",
+      "tipo": "Papelillos",
+      "Categorias": 25,
+      "stock_actual": 70,
+      "stock_minimo": 15,
+      "stock_maximo": 150,
+      "Nutricional": 29
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 50,
-    "fields": { "nombre": "Leche Asada", "descripcion": "Postre casero tradicional con caramelo.", "marca": "La Fornería", "precio": 2000, "caducidad": "2025-10-08", "elaboracion": "2025-10-03", "tipo": "Postre", "Categorias": 22, "stock_actual": 25, "stock_minimo": 5, "stock_maximo": 40, "Nutricional": 30 }
+    "fields": {
+      "nombre": "Papelillos Smoking Red",
+      "descripcion": "Papelillos clasicos de combustion regular.",
+      "marca": "Smoking",
+      "precio": 1000,
+      "caducidad": "2030-12-31",
+      "elaboracion": "2026-01-01",
+      "tipo": "Papelillos",
+      "Categorias": 25,
+      "stock_actual": 65,
+      "stock_minimo": 15,
+      "stock_maximo": 150,
+      "Nutricional": 30
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 51,
-    "fields": { "nombre": "Chipa (Porción de 3)", "descripcion": "Panecillos de queso y almidón de yuca.", "marca": "Sabores Criollos", "precio": 1800, "caducidad": "2025-10-05", "elaboracion": "2025-10-04", "tipo": "Salado Sin Gluten", "Categorias": 24, "stock_actual": 30, "stock_minimo": 10, "stock_maximo": 50, "Nutricional": 31 }
+    "fields": {
+      "nombre": "Enroladora Plastica 78mm",
+      "descripcion": "Enroladora practica de bolsillo.",
+      "marca": "Generica",
+      "precio": 2500,
+      "caducidad": "2030-12-31",
+      "elaboracion": "2026-01-01",
+      "tipo": "Enroladora",
+      "Categorias": 25,
+      "stock_actual": 25,
+      "stock_minimo": 6,
+      "stock_maximo": 60,
+      "Nutricional": 31
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 52,
-    "fields": { "nombre": "Agua con Gas y Limón", "descripcion": "Bebida refrescante y sin azúcar.", "marca": "Aguas del Sur", "precio": 1500, "caducidad": "2026-06-01", "elaboracion": "2025-01-01", "tipo": "Bebida Fría", "Categorias": 23, "stock_actual": 100, "stock_minimo": 20, "stock_maximo": 200, "Nutricional": 32 }
+    "fields": {
+      "nombre": "Encendedor Bic Grande",
+      "descripcion": "Encendedor grande de uso diario.",
+      "marca": "Bic",
+      "precio": 1500,
+      "caducidad": "2030-12-31",
+      "elaboracion": "2026-01-01",
+      "tipo": "Encendedor",
+      "Categorias": 25,
+      "stock_actual": 80,
+      "stock_minimo": 20,
+      "stock_maximo": 180,
+      "Nutricional": 32
+    }
   },
   {
     "model": "catalogo.producto",
     "pk": 53,
-    "fields": { "nombre": "Focaccia de Aceitunas", "descripcion": "Pan plano italiano con aceitunas y romero.", "marca": "La Fornería", "precio": 2800, "caducidad": "2025-10-06", "elaboracion": "2025-10-03", "tipo": "Artesanal", "Categorias": 21, "stock_actual": 20, "stock_minimo": 5, "stock_maximo": 35, "Nutricional": 33 }
+    "fields": {
+      "nombre": "Hielo Bolsa 1kg",
+      "descripcion": "Bolsa de hielo para tragos y bebidas frias.",
+      "marca": "La Junta",
+      "precio": 1500,
+      "caducidad": "2026-06-15",
+      "elaboracion": "2026-05-01",
+      "tipo": "Hielo",
+      "Categorias": 23,
+      "stock_actual": 30,
+      "stock_minimo": 10,
+      "stock_maximo": 80,
+      "Nutricional": 33
+    }
   }
 ]

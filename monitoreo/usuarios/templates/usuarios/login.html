@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Iniciar Sesión - La Fornería{% endblock %}
+{% block title %}Iniciar Sesión - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -9,7 +9,7 @@
 
     <style>
         :root {
-            --color-primario: #c07949; /* Terracota */
+            --color-primario: #2f7d59; /* Verde */
             --color-secundario: #2c2c2c; /* Gris oscuro */
             --color-fondo: #f9f7f2; /* Crema */
             --color-texto: #4a4a4a;
@@ -68,8 +68,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 20% 20%, rgba(192, 121, 73, 0.15) 0%, transparent 20%),
-                              radial-gradient(circle at 80% 80%, rgba(192, 121, 73, 0.15) 0%, transparent 20%);
+            background-image: radial-gradient(circle at 20% 20%, rgba(47, 125, 89, 0.15) 0%, transparent 20%),
+                              radial-gradient(circle at 80% 80%, rgba(47, 125, 89, 0.15) 0%, transparent 20%);
             opacity: 0.6;
         }
 
@@ -140,7 +140,7 @@
         .form-control:focus {
             border-color: var(--color-primario);
             background-color: white;
-            box-shadow: 0 0 0 4px rgba(192, 121, 73, 0.1);
+            box-shadow: 0 0 0 4px rgba(47, 125, 89, 0.1);
         }
 
         .btn-login {
@@ -154,13 +154,13 @@
             width: 100%;
             margin-top: 1.5rem;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(192, 121, 73, 0.3);
+            box-shadow: 0 4px 15px rgba(47, 125, 89, 0.3);
         }
 
         .btn-login:hover {
-            background: #a05e32;
+            background: #246246;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(192, 121, 73, 0.4);
+            box-shadow: 0 6px 20px rgba(47, 125, 89, 0.4);
         }
 
         .login-footer {
@@ -201,9 +201,9 @@
     <div class="login-card">
         
         <div class="login-visual">
-            <i class="bi bi-cup-hot-fill brand-icon"></i>
-            <h2 class="visual-title">La Fornería</h2>
-            <p class="visual-text">Donde la tradición y el sabor se encuentran en cada detalle.</p>
+            <i class="bi bi-cup-straw brand-icon"></i>
+            <h2 class="visual-title">La Junta Coquimbo</h2>
+            <p class="visual-text">Botilleria, snacks y accesorios para tus compras de siempre.</p>
         </div>
 
         <div class="login-form-container">

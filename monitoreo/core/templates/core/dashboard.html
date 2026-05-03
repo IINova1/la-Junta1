@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Dashboard - La Fornería{% endblock %}
+{% block title %}Dashboard - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -8,9 +8,9 @@
     
     <style>
         :root {
-            --color-primario: #c07949; /* Terracota / Pan dorado */
-            --color-secundario: #2c2c2c; /* Gris oscuro industrial */
-            --color-fondo: #f9f7f2; /* Crema suave */
+            --color-primario: #2f7d59;
+            --color-secundario: #202422;
+            --color-fondo: #f7f8f4;
             --color-texto: #4a4a4a;
             --color-borde: #e0e0e0;
         }
@@ -24,7 +24,7 @@
         /* Encabezado */
         .dashboard-header {
             margin-bottom: 2.5rem;
-            border-bottom: 2px solid rgba(192, 121, 73, 0.15);
+            border-bottom: 2px solid rgba(47, 125, 89, 0.15);
             padding-bottom: 1rem;
         }
 
@@ -51,7 +51,7 @@
 
         .kpi-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(192, 121, 73, 0.15);
+            box-shadow: 0 8px 25px rgba(47, 125, 89, 0.15);
         }
 
         .kpi-card::after { /* Decoración lateral */
@@ -79,6 +79,12 @@
             font-weight: 700;
             color: var(--color-secundario);
             line-height: 1;
+        }
+
+        .kpi-note {
+            font-size: 0.8rem;
+            color: #7a7a7a;
+            margin-top: 0.65rem;
         }
 
         .kpi-icon {
@@ -131,13 +137,13 @@
             background-color: var(--color-primario);
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(192, 121, 73, 0.3);
+            box-shadow: 0 5px 15px rgba(47, 125, 89, 0.3);
         }
 
         .action-icon-box {
             width: 50px;
             height: 50px;
-            background-color: rgba(192, 121, 73, 0.1);
+            background-color: rgba(47, 125, 89, 0.1);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -198,7 +204,7 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4 mb-5">
         <div class="col">
             <div class="kpi-card">
                 <div class="kpi-label">Pedidos Pendientes</div>
@@ -211,7 +217,7 @@
             <div class="kpi-card">
                 <div class="kpi-label">Productos Activos</div>
                 <div class="kpi-value">{{ total_productos }}</div>
-                <i class="bi bi-bread-slice kpi-icon"></i>
+                <i class="bi bi-box-seam kpi-icon"></i>
             </div>
         </div>
 
@@ -228,6 +234,15 @@
                 <div class="kpi-label">Proveedores</div>
                 <div class="kpi-value">{{ total_proveedores }}</div>
                 <i class="bi bi-truck kpi-icon"></i>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="kpi-card">
+                <div class="kpi-label">Visitas Web</div>
+                <div class="kpi-value">{{ total_visitas }}</div>
+                <div class="kpi-note">{{ visitantes_unicos }} visitantes unicos</div>
+                <i class="bi bi-eye kpi-icon"></i>
             </div>
         </div>
     </div>
@@ -326,10 +341,10 @@
         const fechas = {{ fechas_grafico|safe }};
         const montos = {{ montos_grafico|safe }};
 
-        // Gradiente de marca (Terracota a transparente)
+        // Gradiente de marca
         let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(192, 121, 73, 0.6)'); 
-        gradient.addColorStop(1, 'rgba(192, 121, 73, 0.0)');
+        gradient.addColorStop(0, 'rgba(47, 125, 89, 0.6)');
+        gradient.addColorStop(1, 'rgba(47, 125, 89, 0.0)');
 
         new Chart(ctx, {
             type: 'line',
@@ -338,11 +353,11 @@
                 datasets: [{
                     label: 'Ventas Totales ($)',
                     data: montos,
-                    borderColor: '#c07949', // Color Primario de la marca
+                    borderColor: '#2f7d59',
                     backgroundColor: gradient,
                     borderWidth: 3,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#c07949',
+                    pointBorderColor: '#2f7d59',
                     pointRadius: 5,
                     pointHoverRadius: 7,
                     fill: true,

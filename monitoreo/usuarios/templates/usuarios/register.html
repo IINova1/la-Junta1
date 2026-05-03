@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Crear Cuenta - La Fornería{% endblock %}
+{% block title %}Crear Cuenta - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -9,7 +9,7 @@
 
     <style>
         :root {
-            --color-primario: #c07949; /* Terracota */
+            --color-primario: #2f7d59; /* Verde */
             --color-secundario: #2c2c2c; /* Gris oscuro */
             --color-fondo: #f9f7f2; /* Crema */
             --color-texto: #4a4a4a;
@@ -67,8 +67,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 20% 20%, rgba(192, 121, 73, 0.15) 0%, transparent 20%),
-                              radial-gradient(circle at 80% 80%, rgba(192, 121, 73, 0.15) 0%, transparent 20%);
+            background-image: radial-gradient(circle at 20% 20%, rgba(47, 125, 89, 0.15) 0%, transparent 20%),
+                              radial-gradient(circle at 80% 80%, rgba(47, 125, 89, 0.15) 0%, transparent 20%);
             opacity: 0.6;
         }
 
@@ -156,7 +156,7 @@
         .form-control:focus, .form-select:focus {
             border-color: var(--color-primario);
             background-color: white;
-            box-shadow: 0 0 0 4px rgba(192, 121, 73, 0.1);
+            box-shadow: 0 0 0 4px rgba(47, 125, 89, 0.1);
             outline: none;
         }
         
@@ -178,13 +178,13 @@
             width: 100%;
             margin-top: 1rem;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(192, 121, 73, 0.3);
+            box-shadow: 0 4px 15px rgba(47, 125, 89, 0.3);
         }
 
         .btn-register:hover {
-            background: #a05e32;
+            background: #246246;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(192, 121, 73, 0.4);
+            box-shadow: 0 6px 20px rgba(47, 125, 89, 0.4);
         }
 
         .register-footer {
@@ -215,7 +215,7 @@
         <div class="register-visual">
             <i class="bi bi-basket2-fill brand-icon"></i>
             <h2 class="visual-title">Únete a Nosotros</h2>
-            <p class="visual-text">Crea tu cuenta y accede a lo mejor de nuestra panadería y pastelería artesanal.</p>
+            <p class="visual-text">Crea tu cuenta y accede a lo mejor de nuestra botilleria y minimarket de confianza.</p>
         </div>
 
         <div class="register-form-container">
@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             icon: 'error',
                             title: 'RUN Inválido',
                             text: 'El formato debe ser: 12.345.678-9',
-                            confirmButtonColor: '#c07949'
+                            confirmButtonColor: '#2f7d59'
                         });
                     } catch (err) {
                         alert("Error: El formato del RUN debe ser 12.345.678-9");

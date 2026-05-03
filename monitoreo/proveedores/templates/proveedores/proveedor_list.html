@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Gestión de Proveedores - La Fornería{% endblock %}
+{% block title %}Gestión de Proveedores - La Junta Coquimbo{% endblock %}
 
 {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -9,7 +9,7 @@
 
     <style>
         :root {
-            --color-primario: #c07949; /* Terracota */
+            --color-primario: #2f7d59; /* Verde */
             --color-secundario: #2c2c2c; /* Gris oscuro */
             --color-fondo: #f9f7f2; /* Crema */
             --color-texto: #4a4a4a;
@@ -26,7 +26,7 @@
         .page-header {
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid rgba(192, 121, 73, 0.15);
+            border-bottom: 2px solid rgba(47, 125, 89, 0.15);
         }
 
         .page-title {
@@ -56,7 +56,7 @@
         
         .filter-input:focus, .filter-select:focus {
             border-color: var(--color-primario);
-            box-shadow: 0 0 0 0.2rem rgba(192, 121, 73, 0.15);
+            box-shadow: 0 0 0 0.2rem rgba(47, 125, 89, 0.15);
         }
 
         /* Tarjeta Contenedora */
@@ -72,7 +72,7 @@
         .company-icon {
             width: 45px;
             height: 45px;
-            background-color: rgba(192, 121, 73, 0.1);
+            background-color: rgba(47, 125, 89, 0.1);
             color: var(--color-primario);
             border-radius: 10px;
             display: flex;
@@ -116,10 +116,10 @@
             gap: 0.5rem;
         }
         .btn-brand:hover {
-            background-color: #a05e32;
+            background-color: #246246;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(192, 121, 73, 0.3);
+            box-shadow: 0 4px 10px rgba(47, 125, 89, 0.3);
         }
 
         /* Tabla Estilizada */
@@ -142,7 +142,7 @@
             font-size: 0.95rem;
         }
         .table-hover tbody tr:hover {
-            background-color: rgba(192, 121, 73, 0.03);
+            background-color: rgba(47, 125, 89, 0.03);
         }
 
         /* Paginación */

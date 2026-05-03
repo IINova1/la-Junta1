@@ -3,133 +3,253 @@
     "model": "catalogo.nutricional",
     "pk": 11,
     "fields": {
-      "ingredientes": "Harina, agua, sal, levadura",
-      "tiempo_preparacion": "3 horas",
-      "proteinas": "9g",
-      "azucar": "1g",
-      "gluten": "Sí"
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
     }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 12,
     "fields": {
-      "ingredientes": "Harina, mantequilla, azúcar, huevo",
-      "tiempo_preparacion": "4 horas",
-      "proteinas": "6g",
-      "azucar": "15g",
-      "gluten": "Sí"
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
     }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 13,
     "fields": {
-      "ingredientes": "Chocolate, harina, azúcar, huevo, mantequilla",
-      "tiempo_preparacion": "2 horas",
-      "proteinas": "8g",
-      "azucar": "40g",
-      "gluten": "Sí"
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
     }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 14,
-    "fields": { "ingredientes": "Harina integral, semillas de girasol, linaza, sésamo", "tiempo_preparacion": "4 horas", "proteinas": "12g", "azucar": "2g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 15,
-    "fields": { "ingredientes": "Harina, masa madre, agua, sal", "tiempo_preparacion": "24 horas", "proteinas": "10g", "azucar": "1g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 16,
-    "fields": { "ingredientes": "Manzanas, canela, harina, mantequilla, azúcar", "tiempo_preparacion": "1.5 horas", "proteinas": "4g", "azucar": "30g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 17,
-    "fields": { "ingredientes": "Queso crema, galletas, limón, azúcar", "tiempo_preparacion": "3 horas", "proteinas": "7g", "azucar": "25g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 18,
-    "fields": { "ingredientes": "Café de grano arábica, agua caliente", "tiempo_preparacion": "5 minutos", "proteinas": "0.1g", "azucar": "0g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 19,
-    "fields": { "ingredientes": "Café, leche, espuma de leche", "tiempo_preparacion": "7 minutos", "proteinas": "8g", "azucar": "12g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 20,
-    "fields": { "ingredientes": "Té negro, especias (canela, cardamomo), leche, azúcar", "tiempo_preparacion": "10 minutos", "proteinas": "7g", "azucar": "20g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 21,
-    "fields": { "ingredientes": "Naranjas frescas exprimidas", "tiempo_preparacion": "5 minutos", "proteinas": "1g", "azucar": "22g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 22,
-    "fields": { "ingredientes": "Pan, jamón de pavo, queso, lechuga, tomate", "tiempo_preparacion": "10 minutos", "proteinas": "25g", "azucar": "5g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 23,
-    "fields": { "ingredientes": "Masa de hojaldre, espinacas, queso ricota", "tiempo_preparacion": "25 minutos", "proteinas": "15g", "azucar": "3g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 24,
-    "fields": { "ingredientes": "Harina, carne molida, cebolla, huevo", "tiempo_preparacion": "45 minutos", "proteinas": "18g", "azucar": "4g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "Producto envasado segun etiqueta del fabricante",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 25,
-    "fields": { "ingredientes": "Zapallo, harina, especias, azúcar flor", "tiempo_preparacion": "1 hora", "proteinas": "5g", "azucar": "25g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 26,
-    "fields": { "ingredientes": "Harina, huevos, fruta confitada, frutos secos", "tiempo_preparacion": "3 horas", "proteinas": "9g", "azucar": "40g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 27,
-    "fields": { "ingredientes": "Avena, miel, frutos secos, semillas", "tiempo_preparacion": "30 minutos", "proteinas": "10g", "azucar": "18g", "gluten": "Puede contener" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 28,
-    "fields": { "ingredientes": "Harina de almendras, azúcar glas, clara de huevo", "tiempo_preparacion": "1 hora", "proteinas": "5g", "azucar": "35g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "Puede contener"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 29,
-    "fields": { "ingredientes": "Chocolate negro, crema, mantequilla", "tiempo_preparacion": "30 minutos", "proteinas": "3g", "azucar": "20g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "No aplica"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 30,
-    "fields": { "ingredientes": "Leche, huevos, azúcar, vainilla", "tiempo_preparacion": "1 hora", "proteinas": "9g", "azucar": "30g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "No aplica"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 31,
-    "fields": { "ingredientes": "Harina de maíz, queso", "tiempo_preparacion": "25 minutos", "proteinas": "12g", "azucar": "2g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "No aplica"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 32,
-    "fields": { "ingredientes": "Agua mineral con gas, limón", "tiempo_preparacion": "1 minuto", "proteinas": "0g", "azucar": "0g", "gluten": "No" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "No aplica"
+    }
   },
   {
     "model": "catalogo.nutricional",
     "pk": 33,
-    "fields": { "ingredientes": "Harina, aceitunas, romero, aceite de oliva", "tiempo_preparacion": "2.5 horas", "proteinas": "8g", "azucar": "1g", "gluten": "Sí" }
+    "fields": {
+      "ingredientes": "No aplica",
+      "tiempo_preparacion": "Listo para llevar",
+      "proteinas": "Segun etiqueta",
+      "azucar": "Segun etiqueta",
+      "gluten": "No aplica"
+    }
   }
 ]
